@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+
+# Virtualenv
+.venv/
+venv/
+env/
+
+# Django
+db.sqlite3
+/staticfiles/
+media/
+*.log
+
+# Env / secrets
+.env
+*.env
+.env.* 
+!.env.example
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# AWS/keys (안전)
+*.pem
+*.ppk
+.aws/
