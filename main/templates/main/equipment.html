@@ -1,0 +1,258 @@
+{% load static %}
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>설비현황 - GEUMHWA BOX</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/app.css' %}">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
+      color: #222;
+      line-height: 1.6;
+      background: #fff;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    /* Header */
+    header {
+      background: #fff;
+      border-bottom: 1px solid #e0e0e0;
+      padding: 15px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo-section {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .logo-section img {
+      height: 40px;
+      object-fit: contain;
+    }
+    
+    .logo-sy {
+      height: 30px;
+    }
+    
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    
+    nav a {
+      color: #222;
+      text-decoration: none;
+      font-size: 14px;
+      padding: 5px 10px;
+      position: relative;
+    }
+    
+    nav a:not(:last-child)::after {
+      content: '|';
+      position: absolute;
+      right: -8px;
+      color: #ccc;
+    }
+    
+    nav a:hover, nav a.active {
+      color: #0066cc;
+    }
+    
+    /* Content */
+    .content {
+      padding: 60px 0;
+    }
+    
+    .page-title {
+      font-size: 32px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    
+    .page-subtitle {
+      font-size: 18px;
+      color: #666;
+      margin-bottom: 40px;
+    }
+    
+    .section {
+      margin-bottom: 60px;
+    }
+    
+    .section-title {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 30px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #4CAF50;
+    }
+    
+    .equipment-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+    
+    .equipment-item {
+      background: #f5f5f5;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .equipment-item h3 {
+      font-size: 20px;
+      margin-bottom: 15px;
+      color: #4CAF50;
+    }
+    
+    .equipment-item p {
+      color: #555;
+      line-height: 1.8;
+    }
+    
+    .equipment-item ul {
+      margin-top: 15px;
+      padding-left: 20px;
+    }
+    
+    .equipment-item li {
+      margin-bottom: 8px;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="header-content">
+        <div class="logo-section">
+          <img src="{% static 'img/logo.png' %}" alt="주식회사 금화 로고">
+          <span style="font-weight: bold; font-size: 16px;">주식회사 금화</span>
+          <img src="{% static 'img/logo_sy.png' %}" alt="성영 로고" class="logo-sy">
+        </div>
+        <nav>
+          <a href="{% url 'company' %}">회사소개</a>
+          <a href="{% url 'products' %}">제품소개</a>
+          <a href="{% url 'equipment' %}" class="active">설비현황</a>
+          <a href="{% url 'inquiry' %}">견적문의</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <section class="content">
+    <div class="container">
+      <h1 class="page-title">설비현황</h1>
+      
+      <div class="section">
+        <h2 class="section-title">01 카톤박스 설비</h2>
+        <div class="equipment-grid">
+          <div class="equipment-item">
+            <h3>후렉소 인쇄기</h3>
+            <p>고속 4도 인쇄가 가능한 후렉소 인쇄 설비를 보유하고 있습니다.</p>
+            <ul>
+              <li>인라인 후렉소 인쇄기</li>
+              <li>오프라인 후렉소 인쇄기</li>
+              <li>고속 생산 가능</li>
+            </ul>
+          </div>
+          <div class="equipment-item">
+            <h3>재단 및 가공 설비</h3>
+            <p>정밀한 재단과 다양한 가공이 가능한 설비를 운영하고 있습니다.</p>
+            <ul>
+              <li>자동 재단기</li>
+              <li>정밀 가공 설비</li>
+              <li>다양한 규격 대응</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2 class="section-title">02 칼라박스 설비</h2>
+        <div class="equipment-grid">
+          <div class="equipment-item">
+            <h3>톰슨 설비</h3>
+            <p>정밀한 형압과 재단이 가능한 톰슨 설비를 보유하고 있습니다.</p>
+            <ul>
+              <li>톰슨 2기 운영</li>
+              <li>정밀 형압 가공</li>
+              <li>대량 양산 안정</li>
+            </ul>
+          </div>
+          <div class="equipment-item">
+            <h3>합지 및 접착 설비</h3>
+            <p>고품질 합지와 접착 작업을 위한 전문 설비를 운영합니다.</p>
+            <ul>
+              <li>합지 설비</li>
+              <li>글루어 설비</li>
+              <li>스티처 설비</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2 class="section-title">03 운반장비</h2>
+        <div class="equipment-grid">
+          <div class="equipment-item">
+            <h3>화물차량</h3>
+            <p>안전하고 신속한 납품을 위한 운반 차량을 보유하고 있습니다.</p>
+            <ul>
+              <li>5톤 화물차</li>
+              <li>3.5톤 화물차</li>
+              <li>1톤 화물차</li>
+            </ul>
+          </div>
+          <div class="equipment-item">
+            <h3>지게차</h3>
+            <p>효율적인 물류 관리를 위한 지게차를 운영하고 있습니다.</p>
+            <ul>
+              <li>전동 지게차</li>
+              <li>내연기관 지게차</li>
+              <li>안전 운행 관리</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer style="background: #fff; border-top: 1px solid #e0e0e0; padding: 30px 0; margin-top: 60px;">
+    <div class="container">
+      <div style="display: flex; justify-content: center; gap: 20px;">
+        <a href="{% url 'company' %}" style="color: #555; text-decoration: none; font-size: 14px;">회사소개</a>
+        <a href="{% url 'products' %}" style="color: #555; text-decoration: none; font-size: 14px;">제품소개</a>
+        <a href="{% url 'equipment' %}" style="color: #555; text-decoration: none; font-size: 14px;">설비현황</a>
+        <a href="{% url 'inquiry' %}" style="color: #555; text-decoration: none; font-size: 14px;">견적문의</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

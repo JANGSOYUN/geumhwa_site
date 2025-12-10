@@ -1,0 +1,269 @@
+{% load static %}
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>회사소개 - GEUMHWA BOX</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/app.css' %}">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
+      color: #222;
+      line-height: 1.6;
+      background: #fff;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    /* Header */
+    header {
+      background: #fff;
+      border-bottom: 1px solid #e0e0e0;
+      padding: 15px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo-section {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .logo-section img {
+      height: 40px;
+      object-fit: contain;
+    }
+    
+    .logo-sy {
+      height: 30px;
+    }
+    
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    
+    nav a {
+      color: #222;
+      text-decoration: none;
+      font-size: 14px;
+      padding: 5px 10px;
+      position: relative;
+    }
+    
+    nav a:not(:last-child)::after {
+      content: '|';
+      position: absolute;
+      right: -8px;
+      color: #ccc;
+    }
+    
+    nav a:hover, nav a.active {
+      color: #0066cc;
+    }
+    
+    /* Content */
+    .content {
+      padding: 60px 0;
+    }
+    
+    .page-title {
+      font-size: 32px;
+      font-weight: bold;
+      margin-bottom: 40px;
+    }
+    
+    .section {
+      margin-bottom: 60px;
+    }
+    
+    .section-title {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 30px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #4CAF50;
+    }
+    
+    .section-content {
+      font-size: 16px;
+      color: #555;
+      line-height: 1.8;
+    }
+    
+    .section-content p {
+      margin-bottom: 15px;
+    }
+    
+    .history-list {
+      list-style: none;
+      padding: 0;
+    }
+    
+    .history-item {
+      padding: 20px;
+      border-left: 3px solid #4CAF50;
+      margin-bottom: 20px;
+      background: #f5f5f5;
+    }
+    
+    .history-year {
+      font-weight: bold;
+      color: #4CAF50;
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+    
+    .history-content {
+      color: #555;
+    }
+    
+    .certification-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    
+    .certification-item {
+      background: #f5f5f5;
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+    }
+    
+    .certification-item h3 {
+      color: #4CAF50;
+      margin-bottom: 10px;
+    }
+    
+    .map-container {
+      width: 100%;
+      height: 400px;
+      background: #f5f5f5;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="header-content">
+        <div class="logo-section">
+          <img src="{% static 'img/logo.png' %}" alt="주식회사 금화 로고">
+          <span style="font-weight: bold; font-size: 16px;">주식회사 금화</span>
+          <img src="{% static 'img/logo_sy.png' %}" alt="성영 로고" class="logo-sy">
+        </div>
+        <nav>
+          <a href="{% url 'company' %}" class="active">회사소개</a>
+          <a href="{% url 'products' %}">제품소개</a>
+          <a href="{% url 'equipment' %}">설비현황</a>
+          <a href="{% url 'inquiry' %}">견적문의</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <section class="content">
+    <div class="container">
+      <h1 class="page-title">회사소개</h1>
+      
+      <div class="section">
+        <h2 class="section-title">인사말</h2>
+        <div class="section-content">
+          <p>주식회사 금화는 고객 만족을 위해 최고의 고객중심 서비스를 제공하는 것을 목표로 하고 있습니다.</p>
+          <p>더 나은 고객의 내일을 생각하는 (주)금화가 되겠습니다.</p>
+          <p>골판지 박스 제조 전문업체로서 최신 설비와 노하우를 바탕으로 고품질 제품을 생산하고 있습니다.</p>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2 class="section-title">연혁</h2>
+        <ul class="history-list">
+          <li class="history-item">
+            <div class="history-year">2020년</div>
+            <div class="history-content">주식회사 금화 설립</div>
+          </li>
+          <li class="history-item">
+            <div class="history-year">2021년</div>
+            <div class="history-content">신규 설비 도입 및 생산 능력 확대</div>
+          </li>
+          <li class="history-item">
+            <div class="history-year">2022년</div>
+            <div class="history-content">품질 인증 획득</div>
+          </li>
+          <li class="history-item">
+            <div class="history-year">2023년</div>
+            <div class="history-content">스마트공장 구축 추진</div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h2 class="section-title">특허 및 인증</h2>
+        <div class="certification-grid">
+          <div class="certification-item">
+            <h3>ISO 인증</h3>
+            <p>품질 관리 시스템 인증</p>
+          </div>
+          <div class="certification-item">
+            <h3>환경 인증</h3>
+            <p>친환경 포장재 인증</p>
+          </div>
+          <div class="certification-item">
+            <h3>안전 인증</h3>
+            <p>산업 안전 보건 인증</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2 class="section-title">오시는 길</h2>
+        <div class="section-content">
+          <p><strong>주소:</strong> 전북 익산시 춘포면 노적1길 50</p>
+          <p><strong>전화:</strong> 063-000-0000</p>
+          <p><strong>이메일:</strong> info@geumhwa.co.kr</p>
+          <div class="map-container">
+            지도 영역 (카카오맵 또는 구글맵 연동 가능)
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer style="background: #fff; border-top: 1px solid #e0e0e0; padding: 30px 0; margin-top: 60px;">
+    <div class="container">
+      <div style="display: flex; justify-content: center; gap: 20px;">
+        <a href="{% url 'company' %}" style="color: #555; text-decoration: none; font-size: 14px;">회사소개</a>
+        <a href="{% url 'products' %}" style="color: #555; text-decoration: none; font-size: 14px;">제품소개</a>
+        <a href="{% url 'equipment' %}" style="color: #555; text-decoration: none; font-size: 14px;">설비현황</a>
+        <a href="{% url 'inquiry' %}" style="color: #555; text-decoration: none; font-size: 14px;">견적문의</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from main.views import home
+from main.views import home, company, products, equipment, inquiry
 
 # 개발 중 미디어 서빙(옵션)
 from django.conf import settings
@@ -24,7 +24,11 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', home, name='home'),   # ⬅ 추가
+    path('', home, name='home'),
+    path('company/', company, name='company'),
+    path('products/', products, name='products'),
+    path('equipment/', equipment, name='equipment'),
+    path('inquiry/', inquiry, name='inquiry'),
 ]
 
 # 개발 서버에서만 미디어 파일 서빙

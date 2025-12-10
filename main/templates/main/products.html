@@ -1,0 +1,453 @@
+{% load static %}
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>제품소개 - GEUMHWA BOX</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/app.css' %}">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
+      color: #222;
+      line-height: 1.6;
+      background: #fff;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    /* Header */
+    header {
+      background: #fff;
+      border-bottom: 1px solid #e0e0e0;
+      padding: 15px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo-section {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .logo-section img {
+      height: 40px;
+      object-fit: contain;
+    }
+    
+    .logo-sy {
+      height: 30px;
+    }
+    
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    
+    nav a {
+      color: #222;
+      text-decoration: none;
+      font-size: 14px;
+      padding: 5px 10px;
+      position: relative;
+    }
+    
+    nav a:not(:last-child)::after {
+      content: '|';
+      position: absolute;
+      right: -8px;
+      color: #ccc;
+    }
+    
+    nav a:hover, nav a.active {
+      color: #0066cc;
+    }
+    
+    /* Content */
+    .content {
+      padding: 60px 0;
+    }
+    
+    .page-title {
+      font-size: 32px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    
+    .page-subtitle {
+      font-size: 18px;
+      color: #666;
+      margin-bottom: 40px;
+    }
+    
+    .section {
+      margin-bottom: 80px;
+    }
+    
+    .section-title {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 30px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #4CAF50;
+    }
+    
+    /* Paper Structure */
+    .paper-structure {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+    
+    .paper-diagram {
+      text-align: center;
+    }
+    
+    .paper-layers {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    
+    .paper-layer {
+      height: 60px;
+      background: #8B6F47;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: bold;
+    }
+    
+    .paper-layer.wavy {
+      background: #A0826D;
+      position: relative;
+    }
+    
+    .paper-layer.wavy::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 10px,
+        rgba(255,255,255,0.1) 10px,
+        rgba(255,255,255,0.1) 20px
+      );
+    }
+    
+    .paper-types {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+    }
+    
+    .paper-type {
+      text-align: center;
+      padding: 15px;
+      background: #f5f5f5;
+      border-radius: 8px;
+      min-width: 120px;
+    }
+    
+    .paper-type-name {
+      font-weight: bold;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+    
+    .paper-description {
+      font-size: 14px;
+      color: #555;
+      line-height: 1.6;
+    }
+    
+    .paper-description p {
+      margin-bottom: 15px;
+    }
+    
+    .paper-description p:last-child {
+      margin-bottom: 0;
+    }
+    
+    /* Paper Types Table */
+    .paper-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      background: #fff;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .paper-table th,
+    .paper-table td {
+      padding: 15px;
+      text-align: left;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    
+    .paper-table th {
+      background: #4CAF50;
+      color: #fff;
+      font-weight: bold;
+    }
+    
+    .paper-table tr:hover {
+      background: #f5f5f5;
+    }
+    
+    /* Flute Types */
+    .flute-section {
+      margin-top: 40px;
+    }
+    
+    .flute-diagram {
+      text-align: center;
+      margin: 30px 0;
+    }
+    
+    .flute-visual {
+      display: inline-block;
+      padding: 20px;
+      background: #f5f5f5;
+      border-radius: 8px;
+    }
+    
+    .flute-layers {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    
+    .flute-layer {
+      height: 40px;
+      background: #8B6F47;
+      border-radius: 4px;
+    }
+    
+    .flute-layer.wavy {
+      background: #A0826D;
+      position: relative;
+      height: 60px;
+    }
+    
+    .flute-layer.wavy::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 8px,
+        rgba(255,255,255,0.15) 8px,
+        rgba(255,255,255,0.15) 16px
+      );
+    }
+    
+    .flute-label {
+      margin-top: 15px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .paper-structure {
+        grid-template-columns: 1fr;
+      }
+      
+      .paper-types {
+        flex-wrap: wrap;
+      }
+      
+      .paper-table {
+        font-size: 12px;
+      }
+      
+      .paper-table th,
+      .paper-table td {
+        padding: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="header-content">
+        <div class="logo-section">
+          <img src="{% static 'img/logo.png' %}" alt="주식회사 금화 로고">
+          <span style="font-weight: bold; font-size: 16px;">주식회사 금화</span>
+          <img src="{% static 'img/logo_sy.png' %}" alt="성영 로고" class="logo-sy">
+        </div>
+        <nav>
+          <a href="{% url 'company' %}">회사소개</a>
+          <a href="{% url 'products' %}" class="active">제품소개</a>
+          <a href="{% url 'equipment' %}">설비현황</a>
+          <a href="{% url 'inquiry' %}">견적문의</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <section class="content">
+    <div class="container">
+      <h1 class="page-title">골판지 박스 소개</h1>
+      
+      <!-- 01 골판지 원지 -->
+      <div class="section">
+        <h2 class="section-title">01 골판지 원지</h2>
+        <div class="paper-structure">
+          <div class="paper-diagram">
+            <div class="paper-layers">
+              <div class="paper-layer">표면지</div>
+              <div class="paper-layer wavy">골심지</div>
+              <div class="paper-layer">이면지</div>
+            </div>
+            <div class="paper-types">
+              <div class="paper-type">
+                <div class="paper-type-name">표면지</div>
+              </div>
+              <div class="paper-type">
+                <div class="paper-type-name">골심지</div>
+              </div>
+              <div class="paper-type">
+                <div class="paper-type-name">이면지</div>
+              </div>
+            </div>
+          </div>
+          <div class="paper-description">
+            <p><strong>표면지 (Surface Paper / Linerboard):</strong><br>
+            표면지는 골판지의 표면에 해당 하며, 인쇄 또는 합지가 되는 면입니다.</p>
+            
+            <p><strong>골심지 (Corrugated Medium / Fluting):</strong><br>
+            골심지는 박스의 강도를 결정하는 원지이며, 골의 두께와 가공방법에 따라 다양한 골제작이 가능합니다.</p>
+            
+            <p><strong>이면지 (Inner Paper / Inner Liner):</strong><br>
+            이면지는 골판지 박스의 내면에 해당 하며, 포장하려는 제품과 닿는 면으로 제품의 용도에 따라 선택이 가능합니다.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 02 원지 종류 -->
+      <div class="section">
+        <h2 class="section-title">02 원지 종류</h2>
+        <table class="paper-table">
+          <thead>
+            <tr>
+              <th>원지 종류</th>
+              <th>평량(g)</th>
+              <th>용도</th>
+              <th>비고</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>S</td>
+              <td>120</td>
+              <td>골심지</td>
+              <td>가장 얇은 원지, 가벼운 상자에 사용</td>
+            </tr>
+            <tr>
+              <td>B</td>
+              <td>150</td>
+              <td>골심지, 이면지</td>
+              <td>강도와 평량이 중간정도</td>
+            </tr>
+            <tr>
+              <td>K</td>
+              <td>180</td>
+              <td>골심지, 이면지</td>
+              <td>가장 많이 쓰이는 원지</td>
+            </tr>
+            <tr>
+              <td>SK</td>
+              <td>180</td>
+              <td>표면지</td>
+              <td>표면이 부드럽고 지분이 덜 나옴</td>
+            </tr>
+            <tr>
+              <td>KLB</td>
+              <td>175</td>
+              <td>표면지, 이면지</td>
+              <td>질기고 내습과 내구성이 좋아 단가가 높음</td>
+            </tr>
+            <tr>
+              <td>강골(CK/AK)</td>
+              <td>180, 200</td>
+              <td>골심지</td>
+              <td>강도가 높으나 단가가 높음</td>
+            </tr>
+            <tr>
+              <td>WK</td>
+              <td>180</td>
+              <td>표면지, 이면지</td>
+              <td>흰색 원지로 강도는 K와 유사하나 고급감이 있음</td>
+            </tr>
+            <tr>
+              <td>SC</td>
+              <td>200</td>
+              <td>표면지</td>
+              <td>광택이 있는 흰색 원지</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 03 골 종류 -->
+      <div class="section">
+        <h2 class="section-title">03 골 종류</h2>
+        <div class="flute-section">
+          <div class="flute-diagram">
+            <div class="flute-visual">
+              <div class="flute-layers">
+                <div class="flute-layer"></div>
+                <div class="flute-layer wavy"></div>
+                <div class="flute-layer"></div>
+              </div>
+              <div class="flute-label">A골</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer style="background: #fff; border-top: 1px solid #e0e0e0; padding: 30px 0; margin-top: 60px;">
+    <div class="container">
+      <div style="display: flex; justify-content: center; gap: 20px;">
+        <a href="{% url 'company' %}" style="color: #555; text-decoration: none; font-size: 14px;">회사소개</a>
+        <a href="{% url 'products' %}" style="color: #555; text-decoration: none; font-size: 14px;">제품소개</a>
+        <a href="{% url 'equipment' %}" style="color: #555; text-decoration: none; font-size: 14px;">설비현황</a>
+        <a href="{% url 'inquiry' %}" style="color: #555; text-decoration: none; font-size: 14px;">견적문의</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

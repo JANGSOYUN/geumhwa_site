@@ -4,292 +4,319 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>주식회사 금화 — 골판지·BOX 제조</title>
-  <meta name="description" content="인라인/오프라인 후렉소, 톰슨·합지·글루 설비를 갖춘 골판지·BOX 제조 전문업체. 맞춤 제작·빠른 납기·안정 품질 제공." />
-  <meta property="og:title" content="주식회사 금화 — 골판지·BOX 제조" />
-  <meta property="og:description" content="맞춤 제작·빠른 납기·안정 품질 제공." />
-  <meta property="og:image" content="data:image/png;base64, ...생략..." />
-
-  <!-- ✅ Tailwind CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- ✅ 정적 CSS는 반드시 head 내부에 -->
+  <title>GEUMHWA BOX - 주식회사 금화</title>
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
   <link rel="stylesheet" href="{% static 'css/app.css' %}">
   <style>
-    .container { max-width: 1120px; }
-    .brand-logo { width: 34px; height: 34px; object-fit: contain; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
+      color: #222;
+      line-height: 1.6;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    /* Header */
+    header {
+      background: #fff;
+      border-bottom: 1px solid #e0e0e0;
+      padding: 15px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo-section {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .logo-section img {
+      height: 40px;
+      object-fit: contain;
+    }
+    
+    .logo-sy {
+      height: 30px;
+    }
+    
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    
+    nav a {
+      color: #222;
+      text-decoration: none;
+      font-size: 14px;
+      padding: 5px 10px;
+      position: relative;
+    }
+    
+    nav a:not(:last-child)::after {
+      content: '|';
+      position: absolute;
+      right: -8px;
+      color: #ccc;
+    }
+    
+    nav a:hover {
+      color: #0066cc;
+    }
+    
+    /* Hero Section */
+    .hero {
+      background: #f5f5f5;
+      padding: 60px 0;
+    }
+    
+    .hero-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+    
+    .hero-text h1 {
+      font-size: 48px;
+      font-weight: bold;
+      line-height: 1.2;
+      margin-bottom: 20px;
+    }
+    
+    .hero-text .geumhwa {
+      color: #4CAF50;
+    }
+    
+    .hero-text .box {
+      color: #2196F3;
+    }
+    
+    .hero-text p {
+      font-size: 16px;
+      color: #555;
+      margin-bottom: 10px;
+      line-height: 1.8;
+    }
+    
+    .hero-image {
+      text-align: center;
+    }
+    
+    .hero-image img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+    
+    /* Quick Links */
+    .quick-links {
+      background: #e0e0e0;
+      padding: 50px 0;
+    }
+    
+    .quick-links-content {
+      display: flex;
+      justify-content: center;
+      gap: 60px;
+    }
+    
+    .quick-link-item {
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+    
+    .quick-link-item:hover {
+      transform: translateY(-5px);
+    }
+    
+    .quick-link-icon {
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 15px;
+      position: relative;
+    }
+    
+    .quick-link-icon .outer-circle {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: #d0d0d0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .quick-link-icon .inner-circle {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: #fff;
+      border: 1px solid #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .quick-link-icon img {
+      width: 60px;
+      height: 60px;
+      object-fit: contain;
+    }
+    
+    .quick-link-item p {
+      font-size: 14px;
+      color: #222;
+      font-weight: 500;
+    }
+    
+    /* Footer */
+    footer {
+      background: #fff;
+      border-top: 1px solid #e0e0e0;
+      padding: 30px 0;
+    }
+    
+    .footer-content {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+    
+    .footer-content a {
+      color: #555;
+      text-decoration: none;
+      font-size: 14px;
+    }
+    
+    .footer-content a:hover {
+      color: #0066cc;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero-content {
+        grid-template-columns: 1fr;
+      }
+      
+      .quick-links-content {
+        flex-direction: column;
+        gap: 30px;
+      }
+      
+      nav {
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      
+      .header-content {
+        flex-direction: column;
+        gap: 15px;
+      }
+    }
   </style>
 </head>
-<body class="min-h-screen text-gray-900 bg-white">
-  <header class="sticky top-0 z-40 bg-white/80 backdrop-blur border-b">
-    <div class="container mx-auto px-4 py-3 flex items-center justify-between">
-      <a href="#hero" class="flex items-center gap-3">
-        <img class="brand-logo" src="{% static 'img/logo.png' %}" alt="logo">
-        <span class="font-semibold">주식회사 금화</span>
-      </a>
-      <nav class="hidden md:flex items-center gap-6 text-sm">
-        <a href="#hero" class="hover:underline">홈</a>
-        <a href="#features" class="hover:underline">핵심가치</a>
-        <a href="#products" class="hover:underline">제품·서비스</a>
-        <a href="#equip" class="hover:underline">설비</a>
-        <a href="#cases" class="hover:underline">레퍼런스</a>
-        <a href="#news" class="hover:underline">뉴스</a>
-        <a href="#contact" class="px-3 py-1.5 rounded-lg bg-gray-900 text-white">문의</a>
-      </nav>
+<body>
+  <header>
+    <div class="container">
+      <div class="header-content">
+        <div class="logo-section">
+          <img src="{% static 'img/logo.png' %}" alt="주식회사 금화 로고">
+          <span style="font-weight: bold; font-size: 16px;">주식회사 금화</span>
+          <img src="{% static 'img/logo_sy.png' %}" alt="성영 로고" class="logo-sy">
+        </div>
+        <nav>
+          <a href="{% url 'company' %}">회사소개</a>
+          <a href="{% url 'products' %}">제품소개</a>
+          <a href="{% url 'equipment' %}">설비현황</a>
+          <a href="{% url 'inquiry' %}">견적문의</a>
+        </nav>
+      </div>
     </div>
   </header>
 
-  <section id="hero" class="bg-white">
-    <div class="container mx-auto px-4 py-20 grid md:grid-cols-2 gap-12 items-center">
-      <div>
-        <h1 class="text-4xl md:text-5xl font-extrabold leading-tight">골판지·BOX 제조 전문, 빠른 납기와 안정된 품질</h1>
-        <p class="mt-4 text-gray-600 max-w-xl">자동화 설비와 축적된 제조 노하우로 고객 맞춤 포장 솔루션을 제공합니다.</p>
-        <div class="mt-8 flex gap-3">
-          <a href="#contact" class="px-5 py-3 rounded-xl bg-gray-900 text-white">제품 문의</a>
-          <a href="#equip" class="px-5 py-3 rounded-xl border">설비능력 보기</a>
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-text">
+          <h1>
+            <span class="geumhwa">GEUMHWA</span> <span class="box">BOX</span>
+          </h1>
+          <p>고객 만족을 위해 최고의 고객중심 서비스를 제공합니다.</p>
+          <p>더 나은 고객의 내일을 생각하는 (주)금화가 되겠습니다.</p>
         </div>
-        <div class="mt-10 text-xs text-gray-500">본사: 전북 익산시 춘포면 노적1길 50</div>
-      </div>
-      <div class="md:justify-self-end">
-        <div class="rounded-2xl overflow-hidden shadow-2xl ring-1 ring-black/5">
-          <img class="w-full h-[340px] object-cover" alt="제조 현장 대표 이미지"
-            src="https://images.unsplash.com/photo-1581090700227-1e37b190418e?q=80&w=1400&auto=format&fit=crop"/>
+        <div class="hero-image">
+          <img src="{% static 'img/main.png' %}" alt="GEUMHWA BOX 제품">
         </div>
       </div>
     </div>
   </section>
 
-  <section class="border-y bg-white">
-    <div class="container mx-auto px-4 py-10">
-      <p class="text-sm text-gray-500">신뢰하는 파트너</p>
-      <div class="mt-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6">
-        <div class="h-10 bg-gray-100 rounded-lg flex items-center justify-center text-gray-400 text-xs">농협</div>
-        <div class="h-10 bg-gray-100 rounded-lg flex items-center justify-center text-gray-400 text-xs">두산전자</div>
-        <div class="h-10 bg-gray-100 rounded-lg flex items-center justify-center text-gray-400 text-xs">광전자</div>
-        <div class="h-10 bg-gray-100 rounded-lg flex items-center justify-center text-gray-400 text-xs">오디텍</div>
-        <div class="h-10 bg-gray-100 rounded-lg flex items-center justify-center text-gray-400 text-xs">새롬식품</div>
-        <div class="h-10 bg-gray-100 rounded-lg flex items-center justify-center text-gray-400 text-xs">참고을</div>
-      </div>
-    </div>
-  </section>
-
-  <section id="features" class="bg-gray-50">
-    <div class="container mx-auto px-4 py-16">
-      <h2 class="text-2xl font-bold">왜 주식회사 금화인가요?</h2>
-      <div class="mt-8 grid md:grid-cols-3 gap-6">
-        <div class="p-6 bg-white rounded-2xl shadow">
-          <div class="w-10 h-10 rounded-lg bg-gray-900 text-white flex items-center justify-center">Q</div>
-          <h3 class="mt-4 font-semibold">안정 품질</h3>
-          <p class="mt-2 text-sm text-gray-600">자동화 중심 공정과 표준화된 검사로 품질 편차 최소화</p>
+  <section class="quick-links">
+    <div class="container">
+      <div class="quick-links-content">
+        <div class="quick-link-item" onclick="window.location.href='{% url 'products' %}'">
+          <div class="quick-link-icon">
+            <div class="outer-circle">
+              <div class="inner-circle">
+                <img src="{% static 'img/product.png' %}" alt="제품소개">
+              </div>
+            </div>
+          </div>
+          <p>제품소개</p>
         </div>
-        <div class="p-6 bg-white rounded-2xl shadow">
-          <div class="w-10 h-10 rounded-lg bg-gray-900 text-white flex items-center justify-center">D</div>
-          <h3 class="mt-4 font-semibold">납기 신뢰</h3>
-          <p class="mt-2 text-sm text-gray-600">보유 차량과 공정 최적화로 약속한 일정 준수</p>
+        <div class="quick-link-item" onclick="window.location.href='{% url 'equipment' %}'">
+          <div class="quick-link-icon">
+            <div class="outer-circle">
+              <div class="inner-circle">
+                <img src="{% static 'img/status.png' %}" alt="설비현황">
+              </div>
+            </div>
+          </div>
+          <p>설비현황</p>
         </div>
-        <div class="p-6 bg-white rounded-2xl shadow">
-          <div class="w-10 h-10 rounded-lg bg-gray-900 text-white flex items-center justify-center">C</div>
-          <h3 class="mt-4 font-semibold">맞춤 대응</h3>
-          <p class="mt-2 text-sm text-gray-600">소량 시제품부터 대량 양산까지 탄력 대응</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="products" class="bg-white">
-    <div class="container mx-auto px-4 py-16">
-      <div class="flex items-end justify-between">
-        <h2 class="text-2xl font-bold">제품·서비스</h2>
-        <a href="#contact" class="text-sm underline">상담 요청</a>
-      </div>
-      <div class="mt-8 grid md:grid-cols-3 gap-6">
-        <article class="overflow-hidden rounded-2xl border">
-          <img src="https://images.unsplash.com/photo-1523474253046-8cd2748b5fd2?q=80&w=1200&auto=format&fit=crop" alt="카톤 BOX" class="h-48 w-full object-cover" />
-          <div class="p-6">
-            <h3 class="font-semibold">카톤 BOX</h3>
-            <ul class="mt-2 space-y-1 text-sm text-gray-600 list-disc list-inside">
-              <li>4도 인쇄·재단</li><li>접착/철침/밴딩</li><li>규격 맞춤 생산</li>
-            </ul>
+        <div class="quick-link-item" onclick="window.location.href='{% url 'inquiry' %}'">
+          <div class="quick-link-icon">
+            <div class="outer-circle">
+              <div class="inner-circle">
+                <img src="{% static 'img/order.png' %}" alt="견적문의">
+              </div>
+            </div>
           </div>
-        </article>
-        <article class="overflow-hidden rounded-2xl border">
-          <img src="https://images.unsplash.com/photo-1557825835-b4527f27d3f5?q=80&w=1200&auto=format&fit=crop" alt="컬러 BOX" class="h-48 w-full object-cover" />
-          <div class="p-6">
-            <h3 class="font-semibold">컬러 BOX</h3>
-            <ul class="mt-2 space-y-1 text-sm text-gray-600 list-disc list-inside">
-              <li>톰슨·합지·글루</li><li>고품질 패키징</li><li>브랜드 컬러 반영</li>
-            </ul>
-          </div>
-        </article>
-        <article class="overflow-hidden rounded-2xl border">
-          <img src="https://images.unsplash.com/photo-1585386959984-a4155223168f?q=80&w=1200&auto=format&fit=crop" alt="맞춤 제작" class="h-48 w-full object-cover" />
-          <div class="p-6">
-            <h3 class="font-semibold">맞춤 제작</h3>
-            <ul class="mt-2 space-y-1 text-sm text-gray-600 list-disc list-inside">
-              <li>상담→설계/시안</li><li>샘플 제작</li><li>양산/납품</li>
-            </ul>
-          </div>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section id="equip" class="bg-gray-50">
-    <div class="container mx-auto px-4 py-16">
-      <h2 class="text-2xl font-bold">생산설비·능력</h2>
-      <div class="mt-8 grid md:grid-cols-2 gap-6">
-        <div class="p-6 bg-white rounded-2xl shadow flex items-start gap-4">
-          <div class="w-10 h-10 rounded-lg bg-emerald-600/10 text-emerald-700 flex items-center justify-center font-bold">후</div>
-          <div>
-            <h3 class="font-semibold">후렉소(인라인/오프라인)</h3>
-            <p class="text-sm text-gray-600">4도 인쇄, 고속 생산</p>
-            <p class="mt-1 text-xs text-gray-500">8h 기준 생산능력</p>
-          </div>
-        </div>
-        <div class="p-6 bg-white rounded-2xl shadow flex items-start gap-4">
-          <div class="w-10 h-10 rounded-lg bg-emerald-600/10 text-emerald-700 flex items-center justify-center font-bold">톰</div>
-          <div>
-            <h3 class="font-semibold">톰슨 2기</h3>
-            <p class="text-sm text-gray-600">정밀 재단/형압</p>
-            <p class="mt-1 text-xs text-gray-500">대량 양산 안정</p>
-          </div>
-        </div>
-        <div class="p-6 bg-white rounded-2xl shadow flex items-start gap-4">
-          <div class="w-10 h-10 rounded-lg bg-emerald-600/10 text-emerald-700 flex items-center justify-center font-bold">합</div>
-          <div>
-            <h3 class="font-semibold">합지/글루어/스티처</h3>
-            <p class="text-sm text-gray-600">접착/철침/밴딩</p>
-            <p class="mt-1 text-xs text-gray-500">공정 일원화</p>
-          </div>
-        </div>
-        <div class="p-6 bg-white rounded-2xl shadow flex items-start gap-4">
-          <div class="w-10 h-10 rounded-lg bg-emerald-600/10 text-emerald-700 flex items-center justify-center font-bold">물</div>
-          <div>
-            <h3 class="font-semibold">물류·출하</h3>
-            <p class="text-sm text-gray-600">5T/3.5T/1T, 지게차</p>
-            <p class="mt-1 text-xs text-gray-500">빠른 납품</p>
-          </div>
-        </div>
-      </div>
-      <div class="mt-8 text-sm text-gray-500">* 상세 스펙과 8h 기준 생산능력 수치는 확정 후 업데이트</div>
-    </div>
-  </section>
-
-  <section id="cases" class="bg-white">
-    <div class="container mx-auto px-4 py-16">
-      <h2 class="text-2xl font-bold">레퍼런스</h2>
-      <div class="mt-8 grid md:grid-cols-3 gap-6">
-        <article class="rounded-2xl border overflow-hidden">
-          <img class="h-40 w-full object-cover" src="https://images.unsplash.com/photo-1515165562835-c3b8c8a0e6cf?q=80&w=1200&auto=format&fit=crop" alt="case-1"/>
-          <div class="p-6">
-            <h3 class="font-semibold">사례 1</h3>
-            <p class="mt-1 text-sm text-gray-600">문제 → 해결 → 성과를 간단히 서술합니다.</p>
-          </div>
-        </article>
-        <article class="rounded-2xl border overflow-hidden">
-          <img class="h-40 w-full object-cover" src="https://images.unsplash.com/photo-1515165562835-c3b8c8a0e6cf?q=80&w=1200&auto=format&fit=crop" alt="case-2"/>
-          <div class="p-6">
-            <h3 class="font-semibold">사례 2</h3>
-            <p class="mt-1 text-sm text-gray-600">문제 → 해결 → 성과를 간단히 서술합니다.</p>
-          </div>
-        </article>
-        <article class="rounded-2xl border overflow-hidden">
-          <img class="h-40 w-full object-cover" src="https://images.unsplash.com/photo-1515165562835-c3b8c8a0e6cf?q=80&w=1200&auto=format&fit=crop" alt="case-3"/>
-          <div class="p-6">
-            <h3 class="font-semibold">사례 3</h3>
-            <p class="mt-1 text-sm text-gray-600">문제 → 해결 → 성과를 간단히 서술합니다.</p>
-          </div>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section id="news" class="bg-gray-50">
-    <div class="container mx-auto px-4 py-16">
-      <h2 class="text-2xl font-bold">뉴스/공지</h2>
-      <div class="mt-8 grid md:grid-cols-3 gap-6">
-        <article class="p-6 bg-white rounded-2xl shadow">
-          <p class="text-xs text-gray-400">2025-10-01</p>
-          <h3 class="mt-2 font-semibold">스마트공장 추진 소식</h3>
-          <p class="mt-1 text-sm text-gray-600">생산성 향상을 위한 스마트공장 구축을 추진 중입니다.</p>
-          <a class="mt-3 inline-block text-sm underline" href="#">자세히 보기</a>
-        </article>
-        <article class="p-6 bg-white rounded-2xl shadow">
-          <p class="text-xs text-gray-400">2025-09-15</p>
-          <h3 class="mt-2 font-semibold">신규 설비 도입</h3>
-          <p class="mt-1 text-sm text-gray-600">고속 후렉소 설비를 도입해 납기를 단축합니다.</p>
-          <a class="mt-3 inline-block text-sm underline" href="#">자세히 보기</a>
-        </article>
-        <article class="p-6 bg-white rounded-2xl shadow">
-          <p class="text-xs text-gray-400">2025-08-30</p>
-          <h3 class="mt-2 font-semibold">인증/수상 소식</h3>
-          <p class="mt-1 text-sm text-gray-600">품질 관련 인증을 갱신했습니다.</p>
-          <a class="mt-3 inline-block text-sm underline" href="#">자세히 보기</a>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section id="contact" class="bg-white">
-    <div class="container mx-auto px-4 py-16 grid md:grid-cols-2 gap-12 items-start">
-      <div>
-        <h2 class="text-2xl font-bold">문의하기</h2>
-        <p class="mt-2 text-sm text-gray-600">프로토타입 폼입니다. 전송 로직은 백엔드 연결 시 활성화됩니다.</p>
-        <form class="mt-6 grid gap-4" onsubmit="event.preventDefault(); alert('문의가 접수되었습니다 (시연).');">
-          <input class="border rounded-lg px-4 py-3" placeholder="회사명" />
-          <div class="grid grid-cols-2 gap-4">
-            <input class="border rounded-lg px-4 py-3" placeholder="담당자" />
-            <input class="border rounded-lg px-4 py-3" placeholder="연락처" />
-          </div>
-          <textarea class="border rounded-lg px-4 py-3 h-32" placeholder="요청사항"></textarea>
-          <label class="text-xs text-gray-500 flex items-center gap-2">
-            <input type="checkbox" /> 개인정보 수집·이용에 동의합니다.
-          </label>
-          <button type="submit" class="px-5 py-3 rounded-xl bg-gray-900 text-white w-fit">문의 보내기</button>
-        </form>
-      </div>
-      <div class="p-6 rounded-2xl bg-gray-50 border">
-        <h3 class="font-semibold">연락처</h3>
-        <ul class="mt-3 text-sm text-gray-700 space-y-1">
-          <li>Tel. 063-000-0000</li>
-          <li>Email. sales@geumhwa.co.kr</li>
-          <li>주소. 전북 익산시 춘포면 노적1길 50</li>
-        </ul>
-        <div class="mt-6 h-56 w-full rounded-xl overflow-hidden bg-gray-200 flex items-center justify-center text-gray-500">
-          지도(Embed) 영역
+          <p>견적문의</p>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="bg-gradient-to-br from-emerald-600 to-sky-600">
-    <div class="container mx-auto px-4 py-14 text-white">
-      <div class="grid md:grid-cols-2 gap-6 items-center">
-        <div>
-          <h3 class="text-2xl font-bold">맞춤 포장 솔루션이 필요하신가요?</h3>
-          <p class="mt-2 text-sm text-emerald-100">샘플부터 양산까지, 빠른 납기와 안정된 품질을 약속드립니다.</p>
-        </div>
-        <div class="md:text-right">
-          <a href="#contact" class="inline-block px-5 py-3 rounded-xl bg-white text-gray-900">지금 문의하기</a>
-        </div>
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <a href="{% url 'company' %}">회사소개</a>
+        <a href="{% url 'products' %}">제품소개</a>
+        <a href="{% url 'equipment' %}">설비현황</a>
+        <a href="{% url 'inquiry' %}">견적문의</a>
       </div>
-    </div>
-  </section>
-
-  <footer class="border-t">
-    <div class="container mx-auto px-4 py-10 grid md:grid-cols-2 gap-6 text-sm text-gray-600">
-      <div>
-        <div class="flex items-center gap-3">
-          <img src="data:image/png;base64,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" class="brand-logo" alt="로고"/>
-          <span class="font-semibold">주식회사 금화</span>
-        </div>
-        <div class="mt-3 text-xs">사업자등록번호 · 대표자 · 통신판매업 · 개인정보보호책임자 (확정 시 기재)</div>
-      </div>
-      <div class="md:text-right text-xs text-gray-500">© <span id="year"></span> 주식회사 금화. All rights reserved.</div>
     </div>
   </footer>
-
-  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>
