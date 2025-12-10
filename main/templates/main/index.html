@@ -143,6 +143,9 @@
       text-align: center;
       cursor: pointer;
       transition: transform 0.3s;
+      text-decoration: none;
+      color: inherit;
+      display: block;
     }
     
     .quick-link-item:hover {
@@ -274,7 +277,7 @@
   <section class="quick-links">
     <div class="container">
       <div class="quick-links-content">
-        <div class="quick-link-item" onclick="window.location.href='{% url 'products' %}'">
+        <a href="{% url 'products' %}" class="quick-link-item">
           <div class="quick-link-icon">
             <div class="outer-circle">
               <div class="inner-circle">
@@ -283,8 +286,8 @@
             </div>
           </div>
           <p>제품소개</p>
-        </div>
-        <div class="quick-link-item" onclick="window.location.href='{% url 'equipment' %}'">
+        </a>
+        <a href="{% url 'equipment' %}" class="quick-link-item">
           <div class="quick-link-icon">
             <div class="outer-circle">
               <div class="inner-circle">
@@ -293,8 +296,8 @@
             </div>
           </div>
           <p>설비현황</p>
-        </div>
-        <div class="quick-link-item" onclick="window.location.href='{% url 'inquiry' %}'">
+        </a>
+        <a href="{% url 'inquiry' %}" class="quick-link-item">
           <div class="quick-link-icon">
             <div class="outer-circle">
               <div class="inner-circle">
@@ -303,7 +306,7 @@
             </div>
           </div>
           <p>견적문의</p>
-        </div>
+        </a>
       </div>
     </div>
   </section>
