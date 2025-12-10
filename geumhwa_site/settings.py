@@ -20,7 +20,8 @@ SECRET_KEY = 'django-insecure-ay@p_&9hnq6npqf+*(a%-49axv%c%k9teov2^+#af%h6r^1bs@
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", SECRET_KEY)
 
 # 3️⃣ DEBUG / ALLOWED_HOSTS
-DEBUG = os.getenv("DJANGO_DEBUG", "0") == "1"
+# DEBUG = os.getenv("DJANGO_DEBUG", "0") == "1"
+DEBUG = True
 ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "localhost,127.0.0.1").split(",")
 
 # (선택) HTTPS 환경일 때 CSRF 신뢰 도메인 추가
@@ -104,7 +105,8 @@ USE_TZ = True
 # ───────────────────────────────
 # 정적 / 미디어 (S3 연동)
 # ───────────────────────────────
-USE_S3 = os.getenv("USE_S3") == "1"
+# USE_S3 = os.getenv("USE_S3") == "1"
+USE_S3 = False
 
 if USE_S3:
     # 공통 설정
@@ -159,10 +161,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # ───────────────────────────────
 # 운영 시 HTTPS 보안 옵션
 # ───────────────────────────────
-if not DEBUG:
-    SECURE_SSL_REDIRECT = True
-    SESSION_COOKIE_SECURE = True
-    CSRF_COOKIE_SECURE = True
+# if not DEBUG:
+#     SECURE_SSL_REDIRECT = True
+#     SESSION_COOKIE_SECURE = True
+#     CSRF_COOKIE_SECURE = True
     # SECURE_HSTS_SECONDS = 31536000
     # SECURE_HSTS_INCLUDE_SUBDOMAINS = True
     # SECURE_HSTS_PRELOAD = True
