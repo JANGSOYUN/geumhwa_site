@@ -243,9 +243,11 @@
     <div class="container">
       <div class="header-content">
         <div class="logo-section">
-          <img src="/static/img/logo.png" alt="주식회사 금화 로고" />
-          <span style="font-weight: bold; font-size: 16px;">주식회사 금화</span>
-          <img src="/static/img/logo_sy.png" alt="성영 로고" class="logo-sy" />
+          <a href="{% url 'index' %}" class="">
+            <img src="{% static 'img/logo.png' %}" alt="주식회사 금화 로고" />
+            <span style="font-weight: bold; font-size: 16px;">주식회사 금화</span>
+            <img src="{% static 'img/logo_sy.png' %}" alt="성영 로고" class="logo-sy" />
+          </a>
         </div>
         <nav>
           <a href="{% url 'company' %}">회사소개</a>
@@ -268,7 +270,7 @@
           <p>더 나은 고객의 내일을 생각하는 (주)금화가 되겠습니다.</p>
         </div>
         <div class="hero-image">
-          <img src="/static/img/main.png" alt="GEUMHWA BOX 제품" />
+          <img src="{% static 'img/main.png' %}" alt="GEUMHWA BOX 제품" />
         </div>
       </div>
     </div>
@@ -281,7 +283,7 @@
           <div class="quick-link-icon">
             <div class="outer-circle">
               <div class="inner-circle">
-                <img src="/static/img/product.png" alt="제품소개" />
+                <img src="{% static 'img/product.png' %}" alt="제품소개" />
               </div>
             </div>
           </div>
@@ -291,7 +293,7 @@
           <div class="quick-link-icon">
             <div class="outer-circle">
               <div class="inner-circle">
-                <img src="/static/img/status.png" alt="설비현황" />
+                <img src="{% static 'img/status.png' %}" alt="설비현황" />
               </div>
             </div>
           </div>
@@ -301,7 +303,7 @@
           <div class="quick-link-icon">
             <div class="outer-circle">
               <div class="inner-circle">
-                <img src="/static/img/order.png" alt="견적문의" />
+                <img src="{% static 'img/order.png' %}" alt="견적문의" />
               </div>
             </div>
           </div>
@@ -314,10 +316,10 @@
   <footer>
     <div class="container">
       <div class="footer-content">
-        <a href="{% url 'company' %}">회사소개</a>
+        <!-- <a href="{% url 'company' %}">회사소개</a>
         <a href="{% url 'products' %}">제품소개</a>
         <a href="{% url 'equipment' %}">설비현황</a>
-        <a href="{% url 'inquiry' %}">견적문의</a>
+        <a href="{% url 'inquiry' %}">견적문의</a> -->
       </div>
     </div>
   </footer>
