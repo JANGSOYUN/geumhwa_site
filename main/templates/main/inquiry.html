@@ -202,19 +202,24 @@
     .submit-btn:hover {
       background: #45a049;
     }
+    
+    .logo-a {
+      text-decoration-line: none;
+      color: black;
+    }
   </style>
 </head>
 <body>
   <header>
     <div class="container">
       <div class="header-content">
-        <div class="logo-section">
-          <a href="/" class="">
+        <a href="/" class="logo-a">
+          <div class="logo-section">
             <img src="/static/img/logo.png" alt="주식회사 금화 로고" />
             <span style="font-weight: bold; font-size: 16px;">주식회사 금화</span>
             <img src="/static/img/logo_sy.png" alt="성영 로고" class="logo-sy" />
-          </a>
-        </div>
+          </div>
+        </a>
         <nav>
           <a href="{% url 'company' %}">회사소개</a>
           <a href="{% url 'products' %}">제품소개</a>
