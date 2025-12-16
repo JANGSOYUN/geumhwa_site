@@ -21,10 +21,38 @@
           </div>
         </a>
         <nav>
-          <a href="{% url 'company' %}" {% if request.resolver_match.url_name == 'company' %}class="active"{% endif %}>회사소개</a>
-          <a href="{% url 'products' %}" {% if request.resolver_match.url_name == 'products' %}class="active"{% endif %}>제품소개</a>
-          <a href="{% url 'equipment' %}" {% if request.resolver_match.url_name == 'equipment' %}class="active"{% endif %}>설비현황</a>
-          <a href="{% url 'inquiry' %}" {% if request.resolver_match.url_name == 'inquiry' %}class="active"{% endif %}>견적문의</a>
+          <div class="nav-item">
+            <a href="{% url 'company' %}" {% if request.resolver_match.url_name == 'company' %}class="active"{% endif %}>회사소개</a>
+            <div class="dropdown-menu">
+              <div class="dropdown-item">인사말</div>
+              <div class="dropdown-item">연혁</div>
+              <div class="dropdown-item">특허 및 인증</div>
+              <div class="dropdown-item">오시는 길</div>
+            </div>
+          </div>
+          <div class="nav-item">
+            <a href="{% url 'products' %}" {% if request.resolver_match.url_name == 'products' %}class="active"{% endif %}>제품소개</a>
+            <div class="dropdown-menu">
+              <div class="dropdown-item">골판지박스 소개</div>
+              <div class="dropdown-item">상자제품소개</div>
+            </div>
+          </div>
+          <div class="nav-item">
+            <a href="{% url 'equipment' %}" {% if request.resolver_match.url_name == 'equipment' %}class="active"{% endif %}>설비현황</a>
+            <div class="dropdown-menu">
+              <div class="dropdown-item">카톤박스 설비</div>
+              <div class="dropdown-item">칼라박스 설비</div>
+              <div class="dropdown-item">운반장비</div>
+            </div>
+          </div>
+          <div class="nav-item">
+            <a href="{% url 'inquiry' %}" {% if request.resolver_match.url_name == 'inquiry' %}class="active"{% endif %}>견적문의</a>
+            <div class="dropdown-menu">
+              <div class="dropdown-item">포장 내용물</div>
+              <div class="dropdown-item">크기</div>
+              <div class="dropdown-item">용도</div>
+            </div>
+          </div>
         </nav>
       </div>
     </div>
