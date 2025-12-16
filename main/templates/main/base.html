@@ -1,0 +1,162 @@
+{% load static %}
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{% block title %}GEUMHWA BOX - 주식회사 금화{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/app.css' %}">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
+      color: #222;
+      line-height: 1.6;
+      background: #fff;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    /* Header */
+    header {
+      background: #fff;
+      border-bottom: 1px solid #e0e0e0;
+      padding: 15px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo-section {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .logo-section img {
+      height: 40px;
+      object-fit: contain;
+    }
+    
+    .logo-sy {
+      height: 30px;
+    }
+    
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    
+    nav a {
+      color: #222;
+      text-decoration: none;
+      font-size: 14px;
+      padding: 5px 10px;
+      position: relative;
+    }
+    
+    nav a:not(:last-child)::after {
+      content: '|';
+      position: absolute;
+      right: -8px;
+      color: #ccc;
+    }
+    
+    nav a:hover, nav a.active {
+      color: #0066cc;
+    }
+    
+    .logo-a {
+      text-decoration-line: none;
+      color: black;
+    }
+    
+    /* Footer */
+    footer {
+      background: #fff;
+      border-top: 1px solid #e0e0e0;
+      padding: 30px 0;
+      margin-top: 60px;
+    }
+    
+    .footer-content {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+    
+    .footer-content a {
+      color: #555;
+      text-decoration: none;
+      font-size: 14px;
+    }
+    
+    .footer-content a:hover {
+      color: #0066cc;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      nav {
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      
+      .header-content {
+        flex-direction: column;
+        gap: 15px;
+      }
+    }
+  </style>
+  {% block extra_style %}{% endblock %}
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="header-content">
+        <a href="{% url 'home' %}" class="logo-a">
+          <div class="logo-section">
+            <img src="{% static 'img/logo.png' %}" alt="주식회사 금화 로고" />
+            <span style="font-weight: bold; font-size: 16px;">주식회사 금화</span>
+            <img src="{% static 'img/logo_sy.png' %}" alt="성영 로고" class="logo-sy" />
+          </div>
+        </a>
+        <nav>
+          <a href="{% url 'company' %}" {% if request.resolver_match.url_name == 'company' %}class="active"{% endif %}>회사소개</a>
+          <a href="{% url 'products' %}" {% if request.resolver_match.url_name == 'products' %}class="active"{% endif %}>제품소개</a>
+          <a href="{% url 'equipment' %}" {% if request.resolver_match.url_name == 'equipment' %}class="active"{% endif %}>설비현황</a>
+          <a href="{% url 'inquiry' %}" {% if request.resolver_match.url_name == 'inquiry' %}class="active"{% endif %}>견적문의</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  {% block content %}{% endblock %}
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <!-- Footer links can be added here if needed -->
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
+
