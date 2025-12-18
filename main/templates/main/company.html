@@ -134,15 +134,7 @@
         <h2 class="section-title">오시는 길</h2>
         <div class="section-content">
           <div class="map-container">
-            <iframe
-              title="전북 익산시 춘포면 노적1길 50 지도"
-              src="https://www.google.co.kr/maps/place/%EC%A0%84%EB%B6%81%ED%8A%B9%EB%B3%84%EC%9E%90%EC%B9%98%EB%8F%84+%EC%9D%B5%EC%82%B0%EC%8B%9C+%EC%B6%98%ED%8F%AC%EB%A9%B4+%EB%85%B8%EC%A0%811%EA%B8%B8+50/data=!3m1!4b1!4m6!3m5!1s0x357015ee5c8a7f53:0x66c2cad7e7a8ade1!8m2!3d35.9473043!4d127.0254781!16s%2Fg%2F11bz7vspdh?entry=ttu&amp;g_ep=EgoyMDI1MTIwOS4wIKXMDSoKLDEwMDc5MjA3MUgBUAM%3D"
-              width="100%"
-              height="100%"
-              style="border:0;"
-              allowfullscreen=""
-              loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <div id="leaflet-map" style="width: 100%; height: 100%; border-radius: 8px; overflow: hidden;"></div>
           </div>
           <p>(주)금화</p>
           <p>전북 익산시 춘포면 노적1길 50</p>
@@ -151,4 +143,41 @@
       </div>
     </div>
   </section>
+{% endblock %}
+
+{% block extra_script %}
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""
+  />
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""
+  ></script>
+  <script>
+    (function() {
+      const mapEl = document.getElementById('leaflet-map');
+      if (!mapEl || !window.L) return;
+
+      const center = [35.9473043, 127.0254781];
+      const map = L.map(mapEl, {
+        center,
+        zoom: 15,
+        zoomControl: true,
+        attributionControl: false
+      });
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19
+      }).addTo(map);
+
+      L.marker(center)
+        .addTo(map)
+        .bindPopup('전북 익산시 춘포면 노적1길 50')
+        .openPopup();
+    })();
+  </script>
 {% endblock %}
