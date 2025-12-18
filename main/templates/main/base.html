@@ -80,34 +80,24 @@
           <div class="nav-item">
             <a href="{% url 'company' %}" {% if request.resolver_match.url_name == 'company' %}class="active"{% endif %}>회사소개</a>
             <div class="dropdown-menu">
-              <div class="dropdown-item">인사말</div>
-              <div class="dropdown-item">연혁</div>
-              <div class="dropdown-item">특허 및 인증</div>
-              <div class="dropdown-item">오시는 길</div>
+              <a href="{% url 'company' %}#company-intro" class="dropdown-item">인사말</a>
+              <a href="{% url 'company' %}#company-history" class="dropdown-item">연혁</a>
+              <a href="{% url 'company' %}#company-certification" class="dropdown-item">특허 및 인증</a>
+              <a href="{% url 'company' %}#company-map" class="dropdown-item">오시는 길</a>
             </div>
           </div>
           <div class="nav-item">
             <a href="{% url 'products' %}" {% if request.resolver_match.url_name == 'products' %}class="active"{% endif %}>제품소개</a>
             <div class="dropdown-menu">
-              <div class="dropdown-item">골판지박스 소개</div>
-              <div class="dropdown-item">상자제품소개</div>
+              <a href="{% url 'products' %}#paper-box-intro" class="dropdown-item">골판지박스 소개</a>
+              <a href="{% url 'products' %}#box-product-section" class="dropdown-item">상자제품소개</a>
             </div>
           </div>
           <div class="nav-item">
             <a href="{% url 'equipment' %}" {% if request.resolver_match.url_name == 'equipment' %}class="active"{% endif %}>설비현황</a>
-            <div class="dropdown-menu">
-              <div class="dropdown-item">카톤박스 설비</div>
-              <div class="dropdown-item">칼라박스 설비</div>
-              <div class="dropdown-item">운반장비</div>
-            </div>
           </div>
           <div class="nav-item">
             <a href="{% url 'inquiry' %}" {% if request.resolver_match.url_name == 'inquiry' %}class="active"{% endif %}>견적문의</a>
-            <div class="dropdown-menu">
-              <div class="dropdown-item">포장 내용물</div>
-              <div class="dropdown-item">크기</div>
-              <div class="dropdown-item">용도</div>
-            </div>
           </div>
         </nav>
       </div>
@@ -119,7 +109,12 @@
   <footer>
     <div class="container">
       <div class="footer-content">
-        <!-- Footer links can be added here if needed -->
+        <p>주소 : 전북특별자치도 익산시 춘포면 노적1길 50</p>
+        <p>TEL : 063-831-9300</p>
+        <p>FAX : 063-831-9307</p>
+      </div>
+      <div class="footer-content-bottom">
+        <p>Copyright 2025 (주)금화. All rights reserved.</p>
       </div>
     </div>
   </footer>
