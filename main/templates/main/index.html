@@ -7,37 +7,47 @@
   <style>
     /* Hero Section */
     .hero {
-      background: #f5f5f5;
-      padding: 60px 0;
+      background: #fff;
+      padding: 80px 0;
     }
     
     .hero-content {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 40px;
+      gap: 60px;
       align-items: center;
     }
     
-    .hero-text h1 {
+    .hero-text {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    
+    .hero-text .main-title {
       font-size: 48px;
-      font-weight: bold;
-      line-height: 1.2;
-      margin-bottom: 20px;
-    }
-    
-    .hero-text .geumhwa {
-      color: #4CAF50;
-    }
-    
-    .hero-text .box {
+      font-weight: 700;
       color: #2196F3;
+      line-height: 1.3;
+      margin: 0;
+      margin-bottom: 10px;
     }
     
-    .hero-text p {
-      font-size: 16px;
-      color: #555;
+    .hero-text .company-name {
+      font-size: 36px;
+      font-weight: 400;
+      color: #2196F3;
+      line-height: 1.3;
+      margin: 0;
       margin-bottom: 10px;
+    }
+    
+    .hero-text .description {
+      font-size: 16px;
+      color: #222;
+      margin: 0;
       line-height: 1.8;
+      margin-top: 5px;
     }
     
     .hero-image {
@@ -47,19 +57,18 @@
     .hero-image img {
       max-width: 100%;
       height: auto;
-      border-radius: 8px;
     }
     
     /* Quick Links */
     .quick-links {
       background: #e0e0e0;
-      padding: 50px 0;
+      padding: 60px 0;
     }
     
     .quick-links-content {
       display: flex;
       justify-content: center;
-      gap: 60px;
+      gap: 80px;
     }
     
     .quick-link-item {
@@ -78,7 +87,7 @@
     .quick-link-icon {
       width: 120px;
       height: 120px;
-      margin: 0 auto 15px;
+      margin: 0 auto 20px;
       position: relative;
     }
     
@@ -86,33 +95,24 @@
       width: 120px;
       height: 120px;
       border-radius: 50%;
-      background: #d0d0d0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    
-    .quick-link-icon .inner-circle {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      background: #fff;
-      border: 1px solid #000;
+      background: #666;
       display: flex;
       align-items: center;
       justify-content: center;
     }
     
     .quick-link-icon img {
-      width: 60px;
-      height: 60px;
+      width: 70px;
+      height: 70px;
       object-fit: contain;
+      filter: brightness(0) invert(1);
     }
     
     .quick-link-item p {
-      font-size: 14px;
+      font-size: 16px;
       color: #222;
-      font-weight: 500;
+      font-weight: 400;
+      margin: 0;
     }
     
     /* Responsive */
@@ -134,11 +134,10 @@
     <div class="container">
       <div class="hero-content">
         <div class="hero-text">
-          <h1>
-            <span class="geumhwa">GEUMHWA</span> <span class="box">BOX</span>
-          </h1>
-          <p>고객 만족을 위해 최고의 고객중심 서비스를 제공합니다.</p>
-          <p>더 나은 고객의 내일을 생각하는 (주)금화가 되겠습니다.</p>
+          <h1 class="main-title">고객을 먼저 생각하는 기업</h1>
+          <h2 class="company-name">주식회사 금화</h2>
+          <p class="description">고객 만족을 위해 최고의 고객중심 서비스를 제공합니다.</p>
+          <p class="description">더 나은 고객의 내일을 생각하는 (주)금화가 되겠습니다.</p>
         </div>
         <div class="hero-image">
           <img src="{% static 'img/main.png' %}" alt="GEUMHWA BOX 제품" />
@@ -153,9 +152,7 @@
         <a href="{% url 'products' %}" class="quick-link-item">
           <div class="quick-link-icon">
             <div class="outer-circle">
-              <div class="inner-circle">
-                <img src="{% static 'img/product.png' %}" alt="제품소개" />
-              </div>
+              <img src="{% static 'img/product.png' %}" alt="제품소개" />
             </div>
           </div>
           <p>제품소개</p>
@@ -163,9 +160,7 @@
         <a href="{% url 'equipment' %}" class="quick-link-item">
           <div class="quick-link-icon">
             <div class="outer-circle">
-              <div class="inner-circle">
-                <img src="{% static 'img/status.png' %}" alt="설비현황" />
-              </div>
+              <img src="{% static 'img/status.png' %}" alt="설비현황" />
             </div>
           </div>
           <p>설비현황</p>
@@ -173,9 +168,7 @@
         <a href="{% url 'inquiry' %}" class="quick-link-item">
           <div class="quick-link-icon">
             <div class="outer-circle">
-              <div class="inner-circle">
-                <img src="{% static 'img/order.png' %}" alt="견적문의" />
-              </div>
+              <img src="{% static 'img/order.png' %}" alt="견적문의" />
             </div>
           </div>
           <p>견적문의</p>
