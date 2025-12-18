@@ -21,7 +21,7 @@ body {
 /* Header */
 header {
   background: #fff;
-  border-bottom: 1px solid #e0e0e0;
+  /*border-bottom: 1px solid #e0e0e0;*/
   padding: 15px 0;
   position: sticky;
   top: 0;
@@ -68,11 +68,11 @@ nav a {
   display: block;
 }
 
-.nav-item:not(:last-child) a::after {
+.nav-item a::after {
   content: '|';
   position: absolute;
-  right: -8px;
-  color: #ccc;
+  left: -8px;
+  color: #156082;
 }
 
 nav a:hover, nav a.active {
@@ -125,7 +125,7 @@ nav a:hover, nav a.active {
 /* Footer */
 footer {
   background: #fff;
-  border-top: 1px solid #e0e0e0;
+  /*border-top: 1px solid #e0e0e0;*/
   padding: 30px 0;
   margin-top: 60px;
 }
