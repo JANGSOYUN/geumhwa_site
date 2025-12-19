@@ -1,0 +1,57 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}상자 제품 소개 - GEUMHWA BOX{% endblock %}
+
+{% block extra_style %}
+  <style>
+    .page-title {
+      margin-bottom: 10px;
+      font-family: Paperlogy-6SemiBold;
+    }
+
+    /* Box Products Grid */
+    .box-gallery {
+      margin-top: 30px;
+    }
+
+    .box-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 30px;
+      justify-items: center;
+    }
+
+    .box-grid img {
+      width: 100%;
+      max-width: 320px;
+      height: auto;
+      object-fit: cover;
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+  <section class="content" id="box-product-section">
+    <div class="container">
+      <h1 class="page-title">상자 제품 소개</h1>
+      <div class="box-gallery">
+        <div class="box-grid">
+          <img src="{% static 'img/box-1.png' %}" alt="박스 샘플 1">
+          <img src="{% static 'img/box-2.png' %}" alt="박스 샘플 2">
+          <img src="{% static 'img/box-3.png' %}" alt="박스 샘플 3">
+          <img src="{% static 'img/box-4.png' %}" alt="박스 샘플 4">
+          <img src="{% static 'img/box-5.png' %}" alt="박스 샘플 5">
+          <img src="{% static 'img/box-6.png' %}" alt="박스 샘플 6">
+          <img src="{% static 'img/box-7.png' %}" alt="박스 샘플 7">
+          <img src="{% static 'img/box-8.png' %}" alt="박스 샘플 8">
+          <img src="{% static 'img/box-9.png' %}" alt="박스 샘플 9">
+          <img src="{% static 'img/box-10.png' %}" alt="박스 샘플 10">
+          <img src="{% static 'img/box-11.png' %}" alt="박스 샘플 11">
+          <img src="{% static 'img/box-12.png' %}" alt="박스 샘플 12">
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}
+

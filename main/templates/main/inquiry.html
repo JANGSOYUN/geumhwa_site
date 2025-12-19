@@ -126,68 +126,9 @@
       
       <div class="inquiry-content">
         <div class="contact-info">
-          <h2>영업 담당자</h2>
-          <p class="name">황진영</p>
-          <p class="phone">Mobile: 010-3910-8443</p>
-          <p class="email">E-mail: </p>
-          <p class="instruction">포장할 제품에 대한 것과 원하시는 상자의 형태를 담당자 연락처로 문의 바랍니다.</p>
-        </div>
-
-        <div class="inquiry-form">
-          <h2>견적 문의 양식</h2>
-          <form method="post" action="#">
-            {% csrf_token %}
-            <div class="form-group">
-              <label for="packaging_contents">포장 내용물</label>
-              <input type="text" id="packaging_contents" name="packaging_contents" placeholder="포장할 제품을 입력해주세요" required>
-              <div class="help-text">포장하려는 제품의 종류와 특성을 입력해주세요.</div>
-            </div>
-            
-            <div class="form-group">
-              <label for="size">크기</label>
-              <input type="text" id="size" name="size" placeholder="가로 x 세로 x 높이 (예: 300 x 200 x 150mm)" required>
-              <div class="help-text">상자의 크기를 입력해주세요. (단위: mm)</div>
-            </div>
-            
-            <div class="form-group">
-              <label for="purpose">용도</label>
-              <select id="purpose" name="purpose" required>
-                <option value="">선택해주세요</option>
-                <option value="배송용">배송용</option>
-                <option value="보관용">보관용</option>
-                <option value="선물용">선물용</option>
-                <option value="전시용">전시용</option>
-                <option value="기타">기타</option>
-              </select>
-            </div>
-            
-            <div class="form-group">
-              <label for="quantity">수량</label>
-              <input type="number" id="quantity" name="quantity" placeholder="예상 수량을 입력해주세요" min="1" required>
-            </div>
-            
-            <div class="form-group">
-              <label for="company_name">회사명</label>
-              <input type="text" id="company_name" name="company_name" placeholder="회사명을 입력해주세요" required>
-            </div>
-            
-            <div class="form-group">
-              <label for="contact_name">담당자명</label>
-              <input type="text" id="contact_name" name="contact_name" placeholder="담당자명을 입력해주세요" required>
-            </div>
-            
-            <div class="form-group">
-              <label for="contact_phone">연락처</label>
-              <input type="tel" id="contact_phone" name="contact_phone" placeholder="010-0000-0000" required>
-            </div>
-            
-            <div class="form-group">
-              <label for="additional_info">추가 요청사항</label>
-              <textarea id="additional_info" name="additional_info" placeholder="추가로 요청하시는 사항이 있으시면 입력해주세요"></textarea>
-            </div>
-            
-            <button type="submit" class="submit-btn">견적 문의하기</button>
-          </form>
+          <h2>영업 메일</h2>
+          <p class="email">E-mail : hjy5207@nate.com</p>
+          <p class="instruction">포장할 제품에 대한 것과 원하시는 상자의 형태를 연락처로 문의 바랍니다.</p>
         </div>
       </div>
     </div>

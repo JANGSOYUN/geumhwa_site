@@ -5,11 +5,18 @@
   box-sizing: border-box;
 }
 
+html {
+  height: 100%;
+}
+
 body {
   font-family: 'Paperlogy', 'Malgun Gothic', '맑은 고딕', sans-serif;
   color: #222;
   line-height: 1.6;
   background: #fff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .container {
@@ -62,16 +69,17 @@ nav {
 nav a {
   color: #222;
   text-decoration: none;
-  font-size: 14px;
+  font-size: 16px;
   padding: 5px 10px;
   position: relative;
   display: block;
+  margin-right: 20px;
 }
 
-.nav-item a::after {
+.nav-item > a::after {
   content: '|';
   position: absolute;
-  left: -8px;
+  left: -3px;
   color: #156082;
 }
 
@@ -105,11 +113,16 @@ nav a:hover, nav a.active {
 }
 
 .dropdown-item {
-  padding: 10px 20px;
+  padding: 10px 19px;
   font-size: 14px;
   color: #555;
   cursor: default;
   transition: background-color 0.2s ease;
+}
+
+.dropdown-menu a::after,
+.dropdown-item::after {
+  content: none !important;
 }
 
 .dropdown-item:hover {
@@ -128,6 +141,7 @@ footer {
   /*border-top: 1px solid #e0e0e0;*/
   padding-top: 30px;
   margin-top: 55px;
+  margin-bottom: 3px;
 }
 
 .footer-content {
@@ -154,6 +168,7 @@ footer {
 /* Common Content Styles */
 .content {
   padding: 60px 0;
+  flex: 1;
 }
 
 .page-title {
