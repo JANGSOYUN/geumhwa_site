@@ -8,24 +8,34 @@
     .history-list {
       list-style: none;
       padding: 0;
+      margin: 0;
     }
     
     .history-item {
-      padding: 20px;
-      border-left: 3px solid #4CAF50;
-      margin-bottom: 20px;
-      background: #f5f5f5;
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+      font-family: Paperlogy-4Regular;
+      font-size: 16px;
     }
     
     .history-year {
       font-weight: bold;
-      color: #4CAF50;
-      font-size: 18px;
-      margin-bottom: 10px;
+      color: #222;
+      margin-right: 15px;
+      flex-shrink: 0;
+      font-size: 20px;
+    }
+    
+    .history-separator {
+      color: #222;
+      margin-right: 15px;
+      flex-shrink: 0;
     }
     
     .history-content {
       color: #555;
+      font-size: 18px;
     }
     
     .certification-grid {
@@ -42,7 +52,7 @@
     }
     
     .certification-item h3 {
-      color: #4CAF50;
+      color: #2744A0;
       margin-bottom: 10px;
     }
     
@@ -61,58 +71,66 @@
 {% endblock %}
 
 {% block content %}
-  <section class="content" id="company-intro">
+  <section class="content">
     <div class="container">
       <h1 class="page-title">회사소개</h1>
       
-      <div class="section">
+      <div class="section" id="company-intro">
         <h2 class="section-title">인사말</h2>
-        <div class="section-content" id="company-history">
+        <div class="section-content">
           <p>주식회사 금화는 고객 만족을 위해 최고의 고객중심 서비스를 제공하는 것을 목표로 하고 있습니다.</p>
           <p>더 나은 고객의 내일을 생각하는 (주)금화가 되겠습니다.</p>
           <p>골판지 박스 제조 전문업체로서 최신 설비와 노하우를 바탕으로 고품질 제품을 생산하고 있습니다.</p>
         </div>
       </div>
 
-      <div class="section">
+      <div class="section" id="company-history">
         <h2 class="section-title">연혁</h2>
         <ul class="history-list">
           <li class="history-item">
-            <div class="history-year">2000</div>
-            <div class="history-content">칠성포장 창립립</div>
+            <span class="history-year">2000</span>
+            <span class="history-separator">|</span>
+            <span class="history-content">칠성포장 창립</span>
           </li>
           <li class="history-item">
-            <div class="history-year">2007</div>
-            <div class="history-content">(주)금화 상호 변경경</div>
+            <span class="history-year">2007</span>
+            <span class="history-separator">|</span>
+            <span class="history-content">(주)금화 상호 변경</span>
           </li>
           <li class="history-item">
-            <div class="history-year">2008</div>
-            <div class="history-content">익산 상공회의소 등록록</div>
+            <span class="history-year">2008</span>
+            <span class="history-separator">|</span>
+            <span class="history-content">익산 상공회의소 등록</span>
           </li>
           <li class="history-item">
-            <div class="history-year">2012</div>
-            <div class="history-content">공장 증축 및 웨이퍼 BOX 특허 및 디자인 등록</div>
+            <span class="history-year">2012</span>
+            <span class="history-separator">|</span>
+            <span class="history-content">공장 증축 및 웨이퍼 BOX 특허 및 디자인 등록</span>
           </li>
           <li class="history-item">
-            <div class="history-year">2016</div>
-            <div class="history-content">컬러 BOX 공장 증축 및 기계설비 투자 (금화 2공장)</div>
+            <span class="history-year">2016</span>
+            <span class="history-separator">|</span>
+            <span class="history-content">컬러 BOX 공장 증축 및 기계설비 투자 (금화 2공장)</span>
           </li>
           <li class="history-item">
-            <div class="history-year"></div>
-            <div class="history-content">컬러 BOX 공장 양산</div>
+            <span class="history-year">　    　</span>
+            <span class="history-separator">|</span>
+            <span class="history-content">컬러 BOX 공장 양산</span>
           </li>
           <li class="history-item">
-            <div class="history-year">2023</div>
-            <div class="history-content">2023년 매출 115억 달성</div>
+            <span class="history-year">2023</span>
+            <span class="history-separator">|</span>
+            <span class="history-content">2023년 매출 115억 달성</span>
           </li>
-          <li class="history-item" id="company-certification">
-            <div class="history-year">2024</div>
-            <div class="history-content">삼성 스마트공장 추진완료</div>
+          <li class="history-item">
+            <span class="history-year">2024</span>
+            <span class="history-separator">|</span>
+            <span class="history-content">삼성 스마트공장 추진완료</span>
           </li>
         </ul>
       </div>
 
-      <div class="section">
+      <div class="section" id="company-certification">
         <h2 class="section-title">특허 및 인증</h2>
         <div class="certification-grid">
           <div class="certification-item">
@@ -123,14 +141,14 @@
             <h3>환경 인증</h3>
             <p>친환경 포장재 인증</p>
           </div>
-          <div class="certification-item" id="company-map">
+          <div class="certification-item">
             <h3>안전 인증</h3>
             <p>산업 안전 보건 인증</p>
           </div>
         </div>
       </div>
 
-      <div class="section">
+      <div class="section" id="company-map">
         <h2 class="section-title">오시는 길</h2>
         <div class="section-content">
           <div class="map-container">

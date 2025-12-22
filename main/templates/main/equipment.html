@@ -6,41 +6,67 @@
 {% block extra_style %}
   <style>
     .page-title {
-      margin-bottom: 10px;
+      margin-bottom: 40px;
+      font-family: Paperlogy-6SemiBold;
     }
     
-    .equipment-grid {
+    .equipment-layout {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 30px;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 40px;
+      align-items: flex-start;
     }
     
-    .equipment-item {
-      background: #f5f5f5;
-      padding: 30px;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    .equipment-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: Paperlogy-3Light;
     }
     
-    .equipment-item h3 {
-      font-size: 20px;
-      margin-bottom: 15px;
-      color: #4CAF50;
+    .equipment-table th {
+      background: #A6A6A6;
+      text-align: center;
+      font-weight: 500;
+      font-family: Paperlogy-4Regular;
+      padding: 6px;
+      border-top: 1px solid #595959;
+      border-bottom: 1px solid #595959;
     }
     
-    .equipment-item p {
-      color: #555;
-      line-height: 1.8;
+    .equipment-table tr {
+      background: #D9D9D9;
+      border-bottom: 2px solid #A6A6A6;
     }
     
-    .equipment-item ul {
-      margin-top: 15px;
-      padding-left: 20px;
+    .equipment-table td {
+      text-align: center;
+      font-family: Paperlogy-3Light;
+      padding: 6px;
     }
     
-    .equipment-item li {
-      margin-bottom: 8px;
-      color: #666;
+    
+    .equipment-images {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+    
+    .equipment-image {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .equipment-layout {
+        grid-template-columns: 1fr;
+      }
+      
+      .equipment-images {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 {% endblock %}
@@ -50,75 +76,112 @@
     <div class="container">
       <h1 class="page-title">설비현황</h1>
       
-      <div class="section">
-        <h2 class="section-title">01 카톤박스 설비</h2>
-        <div class="equipment-grid">
-          <div class="equipment-item">
-            <h3>후렉소 인쇄기</h3>
-            <p>고속 4도 인쇄가 가능한 후렉소 인쇄 설비를 보유하고 있습니다.</p>
-            <ul>
-              <li>인라인 후렉소 인쇄기</li>
-              <li>오프라인 후렉소 인쇄기</li>
-              <li>고속 생산 가능</li>
-            </ul>
-          </div>
-          <div class="equipment-item">
-            <h3>재단 및 가공 설비</h3>
-            <p>정밀한 재단과 다양한 가공이 가능한 설비를 운영하고 있습니다.</p>
-            <ul>
-              <li>자동 재단기</li>
-              <li>정밀 가공 설비</li>
-              <li>다양한 규격 대응</li>
-            </ul>
-          </div>
+      <div class="equipment-layout">
+        <!-- 왼쪽: 테이블 -->
+        <div>
+          <table class="equipment-table">
+            <thead>
+              <tr style="border-top: 2px solid #A6A6A6;">
+                <th style="background-color: #fff; border-bottom: 2px solid #A6A6A6;">구분</th>
+                <th>설비명</th>
+                <th>보유대수</th>
+                <th>생산능력</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- 1 공장 (카톤박스) -->
+              <tr>
+                <td rowspan="6" style="background-color: #fff;">1 공장<br>(카톤박스)</td>
+                <td>오토후렉소(인라인)</td>
+                <td>1</td>
+                <td>30,000매/8시간</td>
+              </tr>
+              <tr>
+                <td>오토후렉소(오프라인)</td>
+                <td>1</td>
+                <td>15,000매/8시간</td>
+              </tr>
+              <tr>
+                <td>폴더글루어스티처</td>
+                <td>1</td>
+                <td>-</td>
+              </tr>
+              <tr>
+                <td>반자동철기계</td>
+                <td>2</td>
+                <td>-</td>
+              </tr>
+              <tr>
+                <td>수동철기계</td>
+                <td>1</td>
+                <td>-</td>
+              </tr>
+              <tr>
+                <td>밴딩기</td>
+                <td>2</td>
+                <td>-</td>
+              </tr>
+              <!-- 2 공장 (컬러박스) -->
+              <tr>
+                <td rowspan="5" style="background-color: #fff;">2 공장<br>(컬러박스)</td>
+                <td>톰슨</td>
+                <td>2</td>
+                <td>60,000매/8시간</td>
+              </tr>
+              <tr>
+                <td>합지기</td>
+                <td>1</td>
+                <td>20,000매/8시간</td>
+              </tr>
+              <tr>
+                <td>반자동철기계</td>
+                <td>2</td>
+                <td>-</td>
+              </tr>
+              <tr>
+                <td>수동철기계</td>
+                <td>1</td>
+                <td>-</td>
+              </tr>
+              <tr>
+                <td>접착기</td>
+                <td>1</td>
+                <td>-</td>
+              </tr>
+              <!-- 운반장비 -->
+              <tr>
+                <td rowspan="4" style="background-color: #fff;">운반장비</td>
+                <td>5T 트럭(윙)</td>
+                <td>1</td>
+                <td>-</td>
+              </tr>
+              <tr>
+                <td>3.5T 트럭</td>
+                <td>4</td>
+                <td>-</td>
+              </tr>
+              <tr>
+                <td>1T 트럭</td>
+                <td>1</td>
+                <td>-</td>
+              </tr>
+              <tr>
+                <td>2T 지게차</td>
+                <td>4</td>
+                <td>-</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-      </div>
-
-      <div class="section">
-        <h2 class="section-title">02 칼라박스 설비</h2>
-        <div class="equipment-grid">
-          <div class="equipment-item">
-            <h3>톰슨 설비</h3>
-            <p>정밀한 형압과 재단이 가능한 톰슨 설비를 보유하고 있습니다.</p>
-            <ul>
-              <li>톰슨 2기 운영</li>
-              <li>정밀 형압 가공</li>
-              <li>대량 양산 안정</li>
-            </ul>
-          </div>
-          <div class="equipment-item">
-            <h3>합지 및 접착 설비</h3>
-            <p>고품질 합지와 접착 작업을 위한 전문 설비를 운영합니다.</p>
-            <ul>
-              <li>합지 설비</li>
-              <li>글루어 설비</li>
-              <li>스티처 설비</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <div class="section">
-        <h2 class="section-title">03 운반장비</h2>
-        <div class="equipment-grid">
-          <div class="equipment-item">
-            <h3>화물차량</h3>
-            <p>안전하고 신속한 납품을 위한 운반 차량을 보유하고 있습니다.</p>
-            <ul>
-              <li>5톤 화물차</li>
-              <li>3.5톤 화물차</li>
-              <li>1톤 화물차</li>
-            </ul>
-          </div>
-          <div class="equipment-item">
-            <h3>지게차</h3>
-            <p>효율적인 물류 관리를 위한 지게차를 운영하고 있습니다.</p>
-            <ul>
-              <li>전동 지게차</li>
-              <li>내연기관 지게차</li>
-              <li>안전 운행 관리</li>
-            </ul>
-          </div>
+        
+        <!-- 오른쪽: 이미지 갤러리 -->
+        <div class="equipment-images">
+          <img src="{% static 'img/equipment-1.jpg' %}" alt="설비 이미지 1" class="equipment-image">
+          <img src="{% static 'img/equipment-2.jpg' %}" alt="설비 이미지 2" class="equipment-image">
+          <img src="{% static 'img/equipment-3.jpg' %}" alt="설비 이미지 3" class="equipment-image">
+          <img src="{% static 'img/equipment-4.png' %}" alt="설비 이미지 4" class="equipment-image">
+          <img src="{% static 'img/equipment-5.png' %}" alt="설비 이미지 5" class="equipment-image">
+          <img src="{% static 'img/equipment-6.png' %}" alt="설비 이미지 6" class="equipment-image">
         </div>
       </div>
     </div>
