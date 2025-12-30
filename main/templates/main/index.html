@@ -5,76 +5,107 @@
 
 {% block extra_style %}
   <style>
-    /* Hero Section */
-    .hero {
-      background: #fff;
-      padding: 80px 0;
+    /* Hero Slider Section */
+    .hero-slider {
+      position: relative;
+      width: 100%;
+      height: 600px;
+      overflow: hidden;
     }
     
-    .hero-content {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 60px;
-      align-items: center;
-    }
-    
-    .hero-text {
+    .hero-slides {
       display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
+      width: 300%;
       height: 100%;
+      transition: transform 0.5s ease-in-out;
     }
     
-    .hero-text .main-title {
-      font-family: Paperlogy-8ExtraBold;
-      font-size: 50px;
-      font-weight: 700;
-      color: #2744A0;
-      margin: 0;
-      margin-bottom: 5px;
+    .hero-slide {
+      width: 33.333%;
+      height: 100%;
+      position: relative;
+      flex-shrink: 0;
     }
     
-    .hero-text .company-name {
-      font-family: Paperlogy-7Bold;
-      font-size: 50px;
-      font-weight: 400;
-      color: #2744A0;
-      line-height: 1;
-      margin: 0;
-      margin-bottom: 25px;
-    }
-
-    .description-bold {
-      font-family: Paperlogy-6SemiBold;
-      font-size: 20px;
-      font-weight: bold;
-      color: #222;
-      margin: 0;
-      line-height: 1;
-      margin-bottom: 15px;
+    .hero-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
     
-    .hero-text .description {
-      font-family: Paperlogy-4Regular;
-      font-size: 18px;
-      color: #222;
-      margin: 0;
-      line-height: 0.5;
-      margin-top: 5px;
-    }
-    
-    .hero-image {
+    .hero-slide-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
       text-align: center;
+      color: #fff;
+      z-index: 2;
+      width: 90%;
+      max-width: 880px;
     }
     
-    .hero-image img {
-      max-width: 100%;
-      height: auto;
+    .hero-slide-content.left-align {
+      top: auto;
+      left: 10%;
+      bottom: 50%;
+      transform: none;
+      text-align: left;
+      max-width: 1100px;
+    }
+    
+    .hero-slide-title {
+      font-family: Paperlogy-8ExtraBold;
+      font-size: 80px;
+      font-weight: 700;
+      margin-bottom: 0px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
+    
+    .hero-slide-subtitle {
+      font-family: Paperlogy-5Medium;
+      font-size: 45px;
+      margin-bottom: 15px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
+    
+    .hero-slide-description {
+      font-family: Paperlogy-5Medium;
+      font-size: 30px;
+      line-height: 1.8;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
+    
+    .hero-slide-description p {
+      height: 35px;
+    }
+    
+    /* Pagination */
+    .hero-pagination {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+      z-index: 3;
+    }
+    
+    .hero-pagination-dot {
+      width: 12px;
+      height: 12px;
+      border: 2px solid #fff;
+      background: transparent;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    
+    .hero-pagination-dot.active {
+      background: #fff;
     }
     
     /* Quick Links */
     .quick-links {
-      /*background: #e0e0e0;*/
       padding: 45px 0;
     }
     
@@ -101,12 +132,6 @@
       width: 120px;
       height: 120px;
       margin: 0 auto 20px;
-      position: relative;
-    }
-    
-    .quick-link-icon {
-      width: 120px;
-      height: 120px;
       border-radius: 50%;
       background: #666;
       display: flex;
@@ -130,8 +155,20 @@
     
     /* Responsive */
     @media (max-width: 768px) {
-      .hero-content {
-        grid-template-columns: 1fr;
+      .hero-slider {
+        height: 400px;
+      }
+      
+      .hero-slide-title {
+        font-size: 32px;
+      }
+      
+      .hero-slide-subtitle {
+        font-size: 18px;
+      }
+      
+      .hero-slide-description {
+        font-size: 14px;
       }
       
       .quick-links-content {
@@ -144,26 +181,49 @@
 
 {% block content %}
   <div style="flex: 1; display: flex; flex-direction: column;">
-    <section class="hero">
-      <div class="container">
-        <div class="hero-content">
-          <div class="hero-text">
-            <h1 class="main-title">고객을 먼저 생각하는 기업</h1>
-            <h2 class="company-name">주식회사 금화</h2>
-            <p class="description-bold">고객 만족을 위해 최고의 고객중심 서비스를 제공합니다.</p>
-            <p class="description">더 나은 고객의 내일을 생각하는 (주)금화가 되겠습니다.</p>
-          </div>
-          <div class="hero-image">
-            <img src="{% static 'img/main.png' %}" alt="GEUMHWA BOX 제품" />
+    <section class="hero-slider">
+      <div class="hero-slides" id="heroSlides">
+        <!-- Slide 1 -->
+        <div class="hero-slide">
+          <img src="{% static 'img/main-2.png' %}" alt="고객을 먼저 생각하는 기업" />
+          <div class="hero-slide-content">
+            <h1 class="hero-slide-title">고객을 먼저 생각하는 기업</h1>
+            <p class="hero-slide-subtitle">Best Quality, Best Service</p>
           </div>
         </div>
+        <!-- Slide 2 -->
+        <div class="hero-slide">
+          <img src="{% static 'img/main-3.png' %}" alt="더 푸른 지구를 위한 오늘의 약속" />
+          <div class="hero-slide-content left-align">
+            <h1 class="hero-slide-title">더 푸른 지구를 위한 오늘의 약속</h1>
+            <div class="hero-slide-description">
+              <p>주식회사 금화는 환경을 생각하는 제품을 만듭니다.</p>
+              <p>혁신적인 기술로 자원의 가치를 되살려 다음 세대와 함께하겠습니다.</p>
+            </div>
+          </div>
+        </div>
+        <!-- Slide 3 -->
+        <div class="hero-slide">
+          <img src="{% static 'img/main-4.png' %}" alt="열정과 정성을 담다" />
+          <div class="hero-slide-content">
+            <h1 class="hero-slide-title">열정과 정성을 담다</h1>
+            <p class="hero-slide-description">금화의 정교한 패키징으로 완벽하게 완성됩니다</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Pagination -->
+      <div class="hero-pagination">
+        <button class="hero-pagination-dot active" data-slide="0"></button>
+        <button class="hero-pagination-dot" data-slide="1"></button>
+        <button class="hero-pagination-dot" data-slide="2"></button>
       </div>
     </section>
 
     <section class="quick-links">
       <div class="container">
         <div class="quick-links-content">
-          <a href="{% url 'products' %}" class="quick-link-item">
+          <a href="{% url 'paper_box' %}" class="quick-link-item">
             <div class="quick-link-icon">
               <img src="{% static 'img/product.png' %}" alt="제품소개" />
             </div>
@@ -185,4 +245,38 @@
       </div>
     </section>
   </div>
+{% endblock %}
+
+{% block extra_script %}
+  <script>
+    (function() {
+      const slides = document.getElementById('heroSlides');
+      const dots = document.querySelectorAll('.hero-pagination-dot');
+      let currentSlide = 0;
+      const totalSlides = 3;
+      
+      function showSlide(index) {
+        slides.style.transform = `translateX(-${index * 33.333}%)`;
+        dots.forEach((dot, i) => {
+          dot.classList.toggle('active', i === index);
+        });
+        currentSlide = index;
+      }
+      
+      function nextSlide() {
+        currentSlide = (currentSlide + 1) % totalSlides;
+        showSlide(currentSlide);
+      }
+      
+      // Auto slide
+      setInterval(nextSlide, 5000);
+      
+      // Dot click handlers
+      dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+          showSlide(index);
+        });
+      });
+    })();
+  </script>
 {% endblock %}

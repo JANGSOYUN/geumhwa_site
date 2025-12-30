@@ -137,11 +137,12 @@ nav a:hover, nav a.active {
 
 /* Footer */
 footer {
-  background: #fff;
+  background: #58636A;
   /*border-top: 1px solid #e0e0e0;*/
-  padding-top: 30px;
+  padding: 10px 0 10px 0;
   margin-top: 55px;
   margin-bottom: 3px;
+  color: white;
 }
 
 .footer-content {
