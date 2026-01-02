@@ -382,7 +382,7 @@
       fetchpriority="high"
       decoding="async"
     />
-    <div class="company-banner-text">
+    <div class="company-banner-text" id="company-menu">
       <h1 class="company-banner-title">회사소개</h1>
       <p class="company-banner-subtitle">About our company</p>
     </div>
@@ -392,10 +392,10 @@
   <section class="sub-nav">
     <div class="container">
       <div class="sub-nav-content">
-        <a href="#company-intro" class="sub-nav-item active" data-section="intro">인사말</a>
-        <a href="#company-history" class="sub-nav-item" data-section="history">연혁</a>
-        <a href="#company-certification" class="sub-nav-item" data-section="certification">특허 및 인증</a>
-        <a href="#company-map" class="sub-nav-item" data-section="map">오시는 길</a>
+        <a href="#company-menu" class="sub-nav-item active" data-section="intro">인사말</a>
+        <a href="#company-menu" class="sub-nav-item" data-section="history">연혁</a>
+        <a href="#company-menu" class="sub-nav-item" data-section="certification">특허 및 인증</a>
+        <a href="#company-menu" class="sub-nav-item" data-section="map">오시는 길</a>
       </div>
     </div>
   </section>
@@ -538,15 +538,24 @@
         
         // Show corresponding section
         contentSections.forEach(section => {
-          if (section.id === 'company-' + sectionId) {
+          const targetId = 'company-' + sectionId;
+          if (section.id === targetId) {
             section.classList.add('active');
+            // Scroll to the section smoothly after a short delay
+            setTimeout(() => {
+              const sectionTop = section.offsetTop;
+              const subNavHeight = document.querySelector('.sub-nav').offsetHeight;
+              const scrollPosition = sectionTop - subNavHeight - 20;
+              
+              window.scrollTo({
+                top: scrollPosition,
+                behavior: 'smooth'
+              });
+            }, 50);
           } else {
             section.classList.remove('active');
           }
         });
-        
-        // Scroll to top of content
-        document.querySelector('.content').scrollIntoView({ behavior: 'smooth' });
       }
       
       // Handle nav item clicks
@@ -554,10 +563,17 @@
         item.addEventListener('click', (e) => {
           e.preventDefault();
           const sectionId = item.getAttribute('data-section');
-          showSection(sectionId);
           
-          // Update URL hash
-          window.location.hash = 'company-' + sectionId;
+          if (sectionId) {
+            showSection(sectionId);
+            
+            // Update URL hash without triggering scroll
+            const currentHash = window.location.hash;
+            const newHash = 'company-' + sectionId;
+            if (currentHash !== '#' + newHash) {
+              history.pushState(null, null, '#' + newHash);
+            }
+          }
         });
       });
       
@@ -569,10 +585,23 @@
         }
       });
       
-      // Initialize based on hash
+      // Handle browser back/forward
+      window.addEventListener('popstate', () => {
+        const hash = window.location.hash.replace('#company-', '');
+        if (hash) {
+          showSection(hash);
+        } else {
+          showSection('intro');
+        }
+      });
+      
+      // Initialize based on hash or default to intro
       const initialHash = window.location.hash.replace('#company-', '');
       if (initialHash) {
         showSection(initialHash);
+      } else {
+        // Default to intro section
+        showSection('intro');
       }
     })();
     

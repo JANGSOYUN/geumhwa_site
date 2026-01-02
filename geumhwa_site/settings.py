@@ -170,6 +170,17 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
     # SECURE_HSTS_PRELOAD = True
 
 # ───────────────────────────────
+# 이메일 설정
+# ───────────────────────────────
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'jangwkd@gmail.com'
+EMAIL_HOST_PASSWORD = 'onte pfun gtrt fyvg'
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+# ───────────────────────────────
 # 로깅
 # ───────────────────────────────
 LOGGING = {

@@ -88,7 +88,7 @@
             </div>
           </div>
           <div class="nav-item">
-            <a href="{% url 'paper_box' %}" {% if request.resolver_match.url_name == 'products' or request.resolver_match.url_name == 'paper_box' or request.resolver_match.url_name == 'box_products' %}class="active"{% endif %}>제품소개</a>
+            <a href="{% url 'products' %}" {% if request.resolver_match.url_name == 'products' or request.resolver_match.url_name == 'paper_box' or request.resolver_match.url_name == 'box_products' %}class="active"{% endif %}>제품소개</a>
             <div class="dropdown-menu">
               <a href="{% url 'paper_box' %}" class="dropdown-item">골판지박스 소개</a>
               <a href="{% url 'box_products' %}" class="dropdown-item">상자제품소개</a>
