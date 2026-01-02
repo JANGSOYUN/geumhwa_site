@@ -5,158 +5,514 @@
 
 {% block extra_style %}
   <style>
-    .history-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
+    /* Banner Section */
+    .company-banner {
+      position: relative;
+      width: 100%;
+      height: 300px;
+      overflow: hidden;
     }
     
-    .history-item {
+    .company-banner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: auto;
+      -ms-interpolation-mode: bicubic;
+      backface-visibility: hidden;
+      transform: translateZ(0);
+      will-change: transform;
+    }
+    
+    .company-banner-text {
+      position: absolute;
+      left: 10%;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #fff;
+      z-index: 2;
+    }
+    
+    .company-banner-title {
+      font-family: Paperlogy-8ExtraBold;
+      font-size: 75px;
+      font-weight: 700;
+      margin-top: 0px;
+      margin-bottom: -15px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
+    
+    .company-banner-subtitle {
+      font-family: Paperlogy-4Regular;
+      font-size: 25px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
+    
+    /* Sub Navigation */
+    .sub-nav {
+      background: #fff;
+      border-bottom: 1px solid #e0e0e0;
+      padding: 0;
+    }
+    
+    .sub-nav-content {
       display: flex;
-      align-items: center;
-      margin-bottom: 15px;
+      justify-content: center;
+      gap: 0;
+    }
+    
+    .sub-nav-item {
+      padding: 15px 40px;
+      text-decoration: none;
+      color: #666;
       font-family: Paperlogy-4Regular;
       font-size: 16px;
+      background: #fff;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s;
     }
     
-    .history-year {
-      font-weight: bold;
+    .sub-nav-item.active {
+      background: #666;
+      color: #fff;
+    }
+    
+    .sub-nav-item:hover {
+      background: #f5f5f5;
       color: #222;
-      margin-right: 15px;
-      flex-shrink: 0;
+    }
+    
+    .sub-nav-item.active:hover {
+      background: #666;
+      color: #fff;
+    }
+    
+    /* Content Sections */
+    .content-section {
+      display: none;
+      padding: 60px 0;
+    }
+    
+    .content-section.active {
+      display: block;
+    }
+    
+    .section-title {
+      text-align: center;
+      font-family: Paperlogy-6SemiBold;
+      font-size: 45px;
+      margin-bottom: 50px;
+      color: #222;
+      border-bottom: none !important;
+      padding-bottom: 0;
+    }
+    
+    /* 인사말 섹션 */
+    .greeting-quote {
+      text-align: right;
+      font-family: Paperlogy-6SemiBold;
+      font-size: 45px;
+      font-weight: 500;
+      color: #222;
+      margin-bottom: 40px;
+      margin-right: 50px;
+    }
+    
+    .greeting-content {
+      margin: 0 55px;
+      font-family: Paperlogy-4Regular;
       font-size: 20px;
-    }
-    
-    .history-separator {
-      color: #222;
-      margin-right: 15px;
-      flex-shrink: 0;
-    }
-    
-    .history-content {
+      font-weight: 500;
+      line-height: 2;
       color: #555;
-      font-size: 18px;
+      text-align: left;
     }
     
+    .greeting-content p {
+      margin-bottom: 20px;
+    }
+    
+    .greeting-signature {
+      text-align: right;
+      margin-top: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 15px;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: 60px;
+    }
+    
+    .greeting-signature img {
+      width: 40px;
+      height: 40px;
+    }
+    
+    .greeting-signature-text-wrapper {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .greeting-signature-text {
+      font-family: Paperlogy-4Regular;
+      font-size: 22px;
+      color: #222;
+      margin-top: 5px;
+    }
+    
+    .greeting-signature-text2 {
+      font-family: Paperlogy-6SemiBold;
+      font-size: 30px;
+      color: #222;
+    }
+    
+    /* 연혁 섹션 */
+    .history-timeline {
+      max-width: 1000px;
+      margin: 0 auto;
+      position: relative;
+      padding: 40px 0;
+    }
+    
+    .history-timeline::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: #ccc;
+      transform: translateX(-50%);
+      height: 860px;
+      margin-top: 44px;
+    }
+    
+    .history-timeline-item {
+      display: flex;
+      margin-bottom: 75px;
+      position: relative;
+    }
+    
+    .history-timeline-item.left {
+      justify-content: flex-start;
+    }
+    
+    .history-timeline-item.right {
+      justify-content: flex-end;
+    }
+    
+    .history-timeline-content {
+      width: 45%;
+      position: relative;
+    }
+    
+    .history-timeline-item.left .history-timeline-content {
+      text-align: right;
+      padding-right: 40px;
+    }
+    
+    .history-timeline-item.right .history-timeline-content {
+      text-align: left;
+      padding-left: 40px;
+    }
+    
+    .history-timeline-year {
+      font-size: 38px;
+      font-weight: 500;
+      color: #222;
+    }
+    
+    .history-timeline-text {
+      font-size: 22px;
+      color: #555;
+    }
+    
+    .history-timeline-dot {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      width: 16px;
+      height: 16px;
+      background: #666;
+      border-radius: 50%;
+      transform: translateX(-50%);
+      z-index: 1;
+    }
+    
+    /* 특허 및 인증 섹션 */
     .certification-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 85px;
+      max-width: 1200px;
+      margin: 0 auto;
     }
     
     .certification-item {
-      background: #f5f5f5;
-      padding: 20px;
-      border-radius: 8px;
-      text-align: center;
+      background: #fff;
+      border: 1px solid #e0e0e0;
+      overflow: hidden;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      height: 465px;
+      width: 330px;
+      position: relative;
     }
     
-    .certification-item h3 {
-      color: #2744A0;
-      margin-bottom: 10px;
+    .certification-item img {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    
+    .certification-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(128, 128, 128, 0.85);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+    }
+    
+    .certification-overlay-title {
+      font-size: 30px;
+    }
+    
+    .certification-overlay-subtitle {
+      font-size: 30px;
+      line-height: 1;
+    }
+    
+    /* 오시는 길 섹션 */
+    .map-layout {
+      width: 100%;
+      max-width: 1400px;
+      margin: 0 auto;
     }
     
     .map-container {
       width: 100%;
-      height: 400px;
-      background: #f5f5f5;
+      height: 600px;
       border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #666;
-      margin-bottom: 10px;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    #naver-map {
+      width: 100%;
+      height: 100%;
+    }
+    
+    .map-address {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 22px;
+      font-weight: 500;
+      color: #222;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .company-banner {
+        height: 200px;
+      }
+      
+      .company-banner-title {
+        font-size: 32px;
+      }
+      
+      .sub-nav-content {
+        flex-wrap: wrap;
+      }
+      
+      .sub-nav-item {
+        padding: 12px 20px;
+        font-size: 14px;
+      }
+      
+      .history-timeline::before {
+        left: 30px;
+      }
+      
+      .history-timeline-item {
+        justify-content: flex-start !important;
+      }
+      
+      .history-timeline-content {
+        width: calc(100% - 60px);
+        margin-left: 60px;
+        text-align: left !important;
+        padding-left: 20px !important;
+        padding-right: 0 !important;
+      }
+      
+      .history-timeline-dot {
+        left: 30px;
+      }
+      
+      .certification-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .map-layout {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 {% endblock %}
 
 {% block content %}
+  <!-- Banner Section -->
+  <section class="company-banner">
+    <img 
+      src="{% static 'img/index-1.png' %}" 
+      alt="회사소개 배너" 
+      loading="eager"
+      fetchpriority="high"
+      decoding="async"
+    />
+    <div class="company-banner-text">
+      <h1 class="company-banner-title">회사소개</h1>
+      <p class="company-banner-subtitle">About our company</p>
+    </div>
+  </section>
+
+  <!-- Sub Navigation -->
+  <section class="sub-nav">
+    <div class="container">
+      <div class="sub-nav-content">
+        <a href="#company-intro" class="sub-nav-item active" data-section="intro">인사말</a>
+        <a href="#company-history" class="sub-nav-item" data-section="history">연혁</a>
+        <a href="#company-certification" class="sub-nav-item" data-section="certification">특허 및 인증</a>
+        <a href="#company-map" class="sub-nav-item" data-section="map">오시는 길</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Content Sections -->
   <section class="content">
     <div class="container">
-      <h1 class="page-title">회사소개</h1>
-      
-      <div class="section" id="company-intro">
+      <!-- 인사말 섹션 -->
+      <div class="content-section active" id="company-intro">
         <h2 class="section-title">인사말</h2>
-        <div class="section-content">
-          <p>주식회사 금화는 고객 만족을 위해 최고의 고객중심 서비스를 제공하는 것을 목표로 하고 있습니다.</p>
-          <p>더 나은 고객의 내일을 생각하는 (주)금화가 되겠습니다.</p>
-          <p>골판지 박스 제조 전문업체로서 최신 설비와 노하우를 바탕으로 고품질 제품을 생산하고 있습니다.</p>
+        <div class="greeting-quote">"고객중심, 고객만족"</div>
+        <div class="greeting-content">
+          <p>안녕하십니까.</p>
+          <p>주식회사 금화는 골판지 박스 제조 전문 기업으로, 창립 이래 한결같이 고객 중심 경영과 고객 만족을 최우선 가치로 삼아 성장해 왔습니다. 저희에게 포장이란 단순한 상자가 아닙니다. 고객의 소중한 제품과 그 안에 담긴 신뢰를 보호하는 중요한 약속입니다.</p>
+          <p>당사는 품질경영시스템(ISO 9001)과 안전보건경영시스템(ISO 45001) 인증을 기반으로 원단 선정부터 설계, 생산, 출하에 이르는 전 공정을 체계적으로 관리하며, 변함없는 품질과 안정적인 납기를 실현하고 있습니다.</p>
+          <p>또한, 가족친화기업으로서 임직원이 안심하고 일할 수 있는 환경을 조성하고 있습니다. 긍정적인 조직 문화가 곧 책임감 있는 제조와 품질 관리로어진다는 믿음, 즉 '사람 중심의 경영이 고객 만족의 시작'이라는 것이 금화의 확고한 철학입니다.</p>
+          <p>금화는 고객의 제품 특성과 사용 환경을 면밀히 분석하여 골 구조, 강도, 작업성, 물류 효율까지 고려한 최적의 맞춤형 박스를 제안합니다. 불필요한 비용은 줄이되 품질과는 결코 타협하지 않는 것이 저희의 원칙입니다.</p>
+          <p>앞으로도 주식회사 금화는 현실에 안주하지 않겠습니다. 신뢰할 수 있는 품질, 안전한 생산, 책임 있는 경영을 통해 고객 여러분과 함께 성장하는 든든한 파트너가 되겠습니다.<br>감사합니다.</p>
+        </div>
+        <div class="greeting-signature">
+          <img src="{% static 'img/logo.png' %}" alt="금화 로고" />
+          <div class="greeting-signature-text-wrapper">
+            <div class="greeting-signature-text">대표이사</div>
+            <div class="greeting-signature-text2">황&nbsp;칠&nbsp;성</div>
+          </div>
         </div>
       </div>
 
-      <div class="section" id="company-history">
+      <!-- 연혁 섹션 -->
+      <div class="content-section" id="company-history">
         <h2 class="section-title">연혁</h2>
-        <ul class="history-list">
-          <li class="history-item">
-            <span class="history-year">2000</span>
-            <span class="history-separator">|</span>
-            <span class="history-content">칠성포장 창립</span>
-          </li>
-          <li class="history-item">
-            <span class="history-year">2007</span>
-            <span class="history-separator">|</span>
-            <span class="history-content">(주)금화 상호 변경</span>
-          </li>
-          <li class="history-item">
-            <span class="history-year">2008</span>
-            <span class="history-separator">|</span>
-            <span class="history-content">익산 상공회의소 등록</span>
-          </li>
-          <li class="history-item">
-            <span class="history-year">2012</span>
-            <span class="history-separator">|</span>
-            <span class="history-content">공장 증축 및 웨이퍼 BOX 특허 및 디자인 등록</span>
-          </li>
-          <li class="history-item">
-            <span class="history-year">2016</span>
-            <span class="history-separator">|</span>
-            <span class="history-content">컬러 BOX 공장 증축 및 기계설비 투자 (금화 2공장)</span>
-          </li>
-          <li class="history-item">
-            <span class="history-year">　    　</span>
-            <span class="history-separator">|</span>
-            <span class="history-content">컬러 BOX 공장 양산</span>
-          </li>
-          <li class="history-item">
-            <span class="history-year">2023</span>
-            <span class="history-separator">|</span>
-            <span class="history-content">2023년 매출 115억 달성</span>
-          </li>
-          <li class="history-item">
-            <span class="history-year">2024</span>
-            <span class="history-separator">|</span>
-            <span class="history-content">삼성 스마트공장 추진완료</span>
-          </li>
-        </ul>
+        <div class="history-timeline">
+          <div class="history-timeline-item right">
+            <div class="history-timeline-content">
+              <div class="history-timeline-year">2007</div>
+              <div class="history-timeline-text">(주)금화 법인 설립</div>
+            </div>
+            <div class="history-timeline-dot"></div>
+          </div>
+          <div class="history-timeline-item left">
+            <div class="history-timeline-content">
+              <div class="history-timeline-year">2008</div>
+              <div class="history-timeline-text">익산 상공회의소 등록</div>
+            </div>
+            <div class="history-timeline-dot"></div>
+          </div>
+          <div class="history-timeline-item right">
+            <div class="history-timeline-content">
+              <div class="history-timeline-year">2012</div>
+              <div class="history-timeline-text">공장 증축 및 BOX 특허 및 디자인 등록</div>
+            </div>
+            <div class="history-timeline-dot"></div>
+          </div>
+          <div class="history-timeline-item left">
+            <div class="history-timeline-content">
+              <div class="history-timeline-year">2016</div>
+              <div class="history-timeline-text">컬러 BOX 공장 증축 (금화 2공장)</div>
+            </div>
+            <div class="history-timeline-dot"></div>
+          </div>
+          <div class="history-timeline-item right">
+            <div class="history-timeline-content">
+              <div class="history-timeline-year">2024</div>
+              <div class="history-timeline-text">삼성 스마트공장 추진 완료</div>
+            </div>
+            <div class="history-timeline-dot"></div>
+          </div>
+          <div class="history-timeline-item left">
+            <div class="history-timeline-content">
+              <div class="history-timeline-year">2025</div>
+              <div class="history-timeline-text">선도형 스마트공장 구축</div>
+            </div>
+            <div class="history-timeline-dot"></div>
+          </div>
+        </div>
       </div>
 
-      <div class="section" id="company-certification">
+      <!-- 특허 및 인증 섹션 -->
+      <div class="content-section" id="company-certification">
         <h2 class="section-title">특허 및 인증</h2>
         <div class="certification-grid">
           <div class="certification-item">
-            <h3>ISO 인증</h3>
-            <p>품질 관리 시스템 인증</p>
+            <img src="{% static 'img/index-2.png' %}" alt="ISO 9001 인증" />
+            <div class="certification-overlay">
+              <div class="certification-overlay-title">ISO 9001</div>
+              <div class="certification-overlay-subtitle">품질경영시스템 인증</div>
+            </div>
           </div>
           <div class="certification-item">
-            <h3>환경 인증</h3>
-            <p>친환경 포장재 인증</p>
+            <img src="{% static 'img/index-3.png' %}" alt="디자인등록증" />
           </div>
           <div class="certification-item">
-            <h3>안전 인증</h3>
-            <p>산업 안전 보건 인증</p>
+            <img src="{% static 'img/index-4.png' %}" alt="특허증" />
+          </div>
+          <div class="certification-item">
+            <img src="{% static 'img/index-5.png' %}" alt="특허증" />
+          </div>
+          <div class="certification-item">
+            <img src="{% static 'img/index-6.png' %}" alt="디자인등록증" />
+          </div>
+          <div class="certification-item">
+            <img src="{% static 'img/index-7.png' %}" alt="특허증" />
           </div>
         </div>
       </div>
 
-      <div class="section" id="company-map">
+      <!-- 오시는 길 섹션 -->
+      <div class="content-section" id="company-map">
         <h2 class="section-title">오시는 길</h2>
-        <div class="section-content">
+        <div class="map-layout">
           <div class="map-container">
-            <div id="leaflet-map" style="width: 100%; height: 100%; border-radius: 8px; overflow: hidden;"></div>
+            <div id="naver-map"></div>
           </div>
-          <p>(주)금화</p>
-          <p>전북 익산시 춘포면 노적1길 50</p>
-          <p>TEL : 063-831-9300</p>
+        </div>
+        <div class="map-address">
+          <p>전북특별자치도 익산시 춘포면 노적1길 50</p>
+          <p>TEL: 063-831-9300</p>
         </div>
       </div>
     </div>
@@ -164,38 +520,82 @@
 {% endblock %}
 
 {% block extra_script %}
-  <link
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-    crossorigin=""
-  />
-  <script
-    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-    crossorigin=""
-  ></script>
   <script>
+    // Sub navigation functionality
     (function() {
-      const mapEl = document.getElementById('leaflet-map');
-      if (!mapEl || !window.L) return;
-
-      const center = [35.9473043, 127.0254781];
-      const map = L.map(mapEl, {
-        center,
-        zoom: 15,
-        zoomControl: true,
-        attributionControl: false
+      const subNavItems = document.querySelectorAll('.sub-nav-item');
+      const contentSections = document.querySelectorAll('.content-section');
+      
+      function showSection(sectionId) {
+        // Update active nav item
+        subNavItems.forEach(item => {
+          if (item.getAttribute('data-section') === sectionId) {
+            item.classList.add('active');
+          } else {
+            item.classList.remove('active');
+          }
+        });
+        
+        // Show corresponding section
+        contentSections.forEach(section => {
+          if (section.id === 'company-' + sectionId) {
+            section.classList.add('active');
+          } else {
+            section.classList.remove('active');
+          }
+        });
+        
+        // Scroll to top of content
+        document.querySelector('.content').scrollIntoView({ behavior: 'smooth' });
+      }
+      
+      // Handle nav item clicks
+      subNavItems.forEach(item => {
+        item.addEventListener('click', (e) => {
+          e.preventDefault();
+          const sectionId = item.getAttribute('data-section');
+          showSection(sectionId);
+          
+          // Update URL hash
+          window.location.hash = 'company-' + sectionId;
+        });
       });
-
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19
-      }).addTo(map);
-
-      L.marker(center)
-        .addTo(map)
-        .bindPopup('전북 익산시 춘포면 노적1길 50')
-        .openPopup();
+      
+      // Handle hash changes
+      window.addEventListener('hashchange', () => {
+        const hash = window.location.hash.replace('#company-', '');
+        if (hash) {
+          showSection(hash);
+        }
+      });
+      
+      // Initialize based on hash
+      const initialHash = window.location.hash.replace('#company-', '');
+      if (initialHash) {
+        showSection(initialHash);
+      }
+    })();
+    
+    // Google Maps iframe embed (free, no API key required)
+    (function() {
+      const mapEl = document.getElementById('naver-map');
+      if (!mapEl) return;
+      
+      // Coordinates: 35.9473043, 127.0254781
+      // Google Maps embed URL using coordinates (no API key needed)
+      const lat = 35.9473043;
+      const lng = 127.0254781;
+      const embedUrl = `https://www.google.com/maps?q=${lat},${lng}&hl=ko&z=15&output=embed`;
+      
+      const iframe = document.createElement('iframe');
+      iframe.src = embedUrl;
+      iframe.width = '100%';
+      iframe.height = '100%';
+      iframe.style.border = '0';
+      iframe.allowFullscreen = true;
+      iframe.loading = 'lazy';
+      
+      mapEl.appendChild(iframe);
     })();
   </script>
 {% endblock %}
