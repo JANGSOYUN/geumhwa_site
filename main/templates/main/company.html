@@ -51,7 +51,11 @@
     
     /* Sub Navigation */
     .sub-nav {
+      position: sticky;
+      top: 70px;
+      z-index: 100;
       background: #fff;
+      border-top: 2px solid #e0e0e0;
       border-bottom: 1px solid #e0e0e0;
       padding: 0;
     }
@@ -69,8 +73,14 @@
       font-size: 16px;
       background: #fff;
       border: none;
+      border-right: 1px solid #e0e0e0;
       cursor: pointer;
       transition: all 0.3s;
+      position: relative;
+    }
+    
+    .sub-nav-item:last-child {
+      border-right: none;
     }
     
     .sub-nav-item.active {
@@ -518,6 +528,24 @@
 
 {% block extra_script %}
   <script>
+    // Set sub-nav top position based on header height
+    (function() {
+      function updateSubNavPosition() {
+        const header = document.querySelector('header');
+        const subNav = document.querySelector('.sub-nav');
+        if (header && subNav) {
+          const headerHeight = header.offsetHeight;
+          subNav.style.top = headerHeight + 'px';
+        }
+      }
+      
+      // Update on load
+      updateSubNavPosition();
+      
+      // Update on resize
+      window.addEventListener('resize', updateSubNavPosition);
+    })();
+    
     // Sub navigation functionality
     (function() {
       const subNavItems = document.querySelectorAll('.sub-nav-item');
