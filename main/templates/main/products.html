@@ -9,27 +9,27 @@
     .product-banner {
       position: relative;
       width: 100%;
-      min-height: 400px;
-      background: #666;
-      display: flex;
-      align-items: center;
-      padding: 40px 10%;
+      height: 300px;
       overflow: hidden;
-      margin: 0;
     }
     
-    .product-banner-content {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+    .product-banner img {
       width: 100%;
-      max-width: 1400px;
-      margin: 0 auto;
-      gap: 40px;
+      height: 100%;
+      object-fit: cover;
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: auto;
+      -ms-interpolation-mode: bicubic;
+      backface-visibility: hidden;
+      transform: translateZ(0);
+      will-change: transform;
     }
     
     .product-banner-text {
-      flex: 1;
+      position: absolute;
+      left: 10%;
+      top: 50%;
+      transform: translateY(-50%);
       color: #fff;
       z-index: 2;
     }
@@ -38,32 +38,15 @@
       font-family: Paperlogy-8ExtraBold;
       font-size: 75px;
       font-weight: 700;
-      margin-bottom: 10px;
-      color: #fff;
-      line-height: 1.2;
+      margin-top: 0px;
+      margin-bottom: -15px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
     }
     
     .product-banner-subtitle {
       font-family: Paperlogy-4Regular;
       font-size: 25px;
-      color: #ccc;
-    }
-    
-    .product-banner-image {
-      flex: 1;
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      min-width: 0;
-    }
-    
-    .product-banner-image img {
-      max-width: 100%;
-      max-height: 350px;
-      width: auto;
-      height: auto;
-      object-fit: contain;
-      display: block;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
     }
     
     /* Sub Navigation */
@@ -330,22 +313,11 @@
     /* Responsive */
     @media (max-width: 768px) {
       .product-banner {
-        height: 300px;
-        padding: 0 5%;
-      }
-      
-      .product-banner-content {
-        flex-direction: column;
-        text-align: center;
+        height: 200px;
       }
       
       .product-banner-title {
-        font-size: 48px;
-      }
-      
-      .product-banner-image {
-        justify-content: center;
-        margin-top: 20px;
+        font-size: 32px;
       }
       
       .sub-nav-item {
