@@ -282,23 +282,37 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: rgba(128, 128, 128, 0.85);
+      background: rgb(142 142 139 / 70%);
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       color: #fff;
       text-align: center;
-      padding: 20px;
+      padding: 30px 20px;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+    
+    .certification-item:hover .certification-overlay {
+      opacity: 1;
+      visibility: visible;
     }
     
     .certification-overlay-title {
-      font-size: 30px;
+      font-size: 32px;
+      font-weight: 600;
+      margin-bottom: 15px;
+      font-family: Paperlogy-6SemiBold;
+      color: #fff;
     }
     
     .certification-overlay-subtitle {
       font-size: 30px;
-      line-height: 1;
+      line-height: 1.5;
+      font-family: Paperlogy-4Regular;
+      color: #fff;
     }
     
     /* 오시는 길 섹션 */
@@ -485,26 +499,40 @@
         <h2 class="section-title">특허 및 인증</h2>
         <div class="certification-grid">
           <div class="certification-item">
-            <img src="{% static 'img/index-2.png' %}" alt="ISO 9001 인증" />
+            <img src="{% static 'img/index-2.png' %}" alt="산업통산자원부장관표창" />
             <div class="certification-overlay">
-              <div class="certification-overlay-title">ISO 9001</div>
-              <div class="certification-overlay-subtitle">품질경영시스템 인증</div>
+              <div class="certification-overlay-subtitle">산업통산자원부장관<br>표창</div>
             </div>
           </div>
           <div class="certification-item">
-            <img src="{% static 'img/index-3.png' %}" alt="디자인등록증" />
+            <img src="{% static 'img/index-3.jpg' %}" alt="ISO 45001:2018인증서서" />
+            <div class="certification-overlay">
+              <div class="certification-overlay-subtitle">ISO 45001:2018<br>인증서</div>
+            </div>
           </div>
           <div class="certification-item">
-            <img src="{% static 'img/index-4.png' %}" alt="특허증" />
+            <img src="{% static 'img/index-4.jpg' %}" alt="ISO 45001:2018인증서서" />
+            <div class="certification-overlay">
+              <div class="certification-overlay-subtitle">ISO 45001:2018<br>인증서</div>
+            </div>
           </div>
           <div class="certification-item">
-            <img src="{% static 'img/index-5.png' %}" alt="특허증" />
+            <img src="{% static 'img/index-5.png' %}" alt="가족친화인증" />
+            <div class="certification-overlay">
+              <div class="certification-overlay-subtitle">가족친화인증</div>
+            </div>
           </div>
           <div class="certification-item">
-            <img src="{% static 'img/index-6.png' %}" alt="디자인등록증" />
+            <img src="{% static 'img/index-6.jpg' %}" alt="ISO 9001:2015인증서" />
+            <div class="certification-overlay">
+              <div class="certification-overlay-subtitle">ISO 9001:2015<br>인증서</div>
+            </div>
           </div>
           <div class="certification-item">
-            <img src="{% static 'img/index-7.png' %}" alt="특허증" />
+            <img src="{% static 'img/index-7.jpg' %}" alt="ISO 9001:2015인증서" />
+            <div class="certification-overlay">
+              <div class="certification-overlay-subtitle">ISO 9001:2015<br>인증서</div>
+            </div>
           </div>
         </div>
       </div>
