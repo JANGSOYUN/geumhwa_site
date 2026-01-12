@@ -173,16 +173,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # 이메일 설정
 # ───────────────────────────────
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.naver.com'
+EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', 'geumhwa9300@naver.com')
-EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', '9037geumhwa!!')
+EMAIL_HOST_USER = 'geumhwa9300@gmail.com'
+EMAIL_HOST_PASSWORD = 'yebt fsje resn bkma'
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-
-# 이메일 전송 실패 시 콘솔 백엔드로 대체 (개발 환경)
-if DEBUG and not EMAIL_HOST_PASSWORD:
-    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # ───────────────────────────────
 # 로깅

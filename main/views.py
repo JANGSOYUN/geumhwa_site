@@ -48,7 +48,7 @@ def inquiry(request):
 기타 요청사항: {other_requests or '(없음)'}
 '''
         
-        recipient_email = 'geumhwa9300@naver.com'
+        recipient_email = 'geumhwa9300@gmail.com'
         
         # 이메일 전송 시도
         email_sent = False
