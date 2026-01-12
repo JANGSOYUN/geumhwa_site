@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from main.views import home, company, products, paper_box, box_products, equipment, inquiry
+from main.views import home, company, products, paper_box, carton_box, color_box, equipment, inquiry
 
 # 개발 중 미디어 서빙(옵션)
 from django.conf import settings
@@ -28,7 +28,8 @@ urlpatterns = [
     path('company/', company, name='company'),
     path('products/', products, name='products'),
     path('products/paper-box/', paper_box, name='paper_box'),
-    path('products/box-products/', box_products, name='box_products'),
+    path('products/carton_box/', carton_box, name='carton_box'),
+    path('products/color_box/', color_box, name='color_box'),
     path('equipment/', equipment, name='equipment'),
     path('inquiry/', inquiry, name='inquiry'),
 ]
