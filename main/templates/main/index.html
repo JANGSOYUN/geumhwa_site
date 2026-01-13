@@ -14,44 +14,81 @@
     }
     
     .hero-slides {
-      display: flex;
-      width: 300%;
+      position: relative;
+      width: 100%;
       height: 100%;
-      transition: transform 0.5s ease-in-out;
     }
     
     .hero-slide {
-      width: 33.333%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
       height: 100%;
-      position: relative;
-      flex-shrink: 0;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+    
+    .hero-slide.active {
+      opacity: 1;
+      z-index: 1;
     }
     
     .hero-slide img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+    
+    .hero-slide.active img {
+      opacity: 1;
     }
     
     .hero-slide-content {
       position: absolute;
-      top: 50%;
+      top: 45%;
       left: 50%;
-      transform: translate(-50%, -50%);
       text-align: center;
       color: #fff;
       z-index: 2;
       width: 90%;
       max-width: 880px;
+      opacity: 0;
+      transition: opacity 1s ease-in-out 0.5s, transform 1s ease-in-out 0.5s;
+    }
+    
+    .hero-slide-content2 {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      text-align: center;
+      color: #fff;
+      z-index: 2;
+      width: 90%;
+      max-width: 880px;
+      opacity: 0;
+      transition: opacity 1s ease-in-out 0.7s, transform 1s ease-in-out 0.7s;
+      margin-top: 80px;
     }
     
     .hero-slide-content.left-align {
-      top: auto;
+      top: 10%;
       left: 10%;
       bottom: 50%;
-      transform: none;
       text-align: left;
       max-width: 1100px;
+    }
+    
+    .hero-slide-description.hero-slide-content2 {
+      position: absolute;
+      top:55%;
+      left: 0%;
+      bottom: 35%;
+      text-align: left;
+      max-width: 1100px;
+      margin-top: 0;
     }
     
     .hero-slide-title {
@@ -96,6 +133,7 @@
       height: 12px;
       border: 2px solid #fff;
       background: transparent;
+      border-radius: 50%;
       cursor: pointer;
       transition: background 0.3s;
     }
@@ -189,6 +227,8 @@
           <img src="{% static 'img/main-2.png' %}" alt="고객을 먼저 생각하는 기업" />
           <div class="hero-slide-content">
             <h1 class="hero-slide-title">고객을 먼저 생각하는 기업</h1>
+          </div>
+          <div class="hero-slide-content2">
             <p class="hero-slide-subtitle">Best Quality, Best Service</p>
           </div>
         </div>
@@ -197,7 +237,7 @@
           <img src="{% static 'img/main-3.png' %}" alt="더 푸른 지구를 위한 오늘의 약속" />
           <div class="hero-slide-content left-align">
             <h1 class="hero-slide-title">더 푸른 지구를 위한 오늘의 약속</h1>
-            <div class="hero-slide-description">
+            <div class="hero-slide-description hero-slide-content2">
               <p>주식회사 금화는 환경을 생각하는 제품을 만듭니다.</p>
               <p>혁신적인 기술로 자원의 가치를 되살려 다음 세대와 함께하겠습니다.</p>
             </div>
@@ -208,6 +248,8 @@
           <img src="{% static 'img/main-4.png' %}" alt="열정과 정성을 담다" />
           <div class="hero-slide-content">
             <h1 class="hero-slide-title">열정과 정성을 담다</h1>
+          </div>
+          <div class="hero-slide-content2">
             <p class="hero-slide-description">금화의 정교한 패키징으로 완벽하게 완성됩니다</p>
           </div>
         </div>
@@ -251,31 +293,236 @@
 {% block extra_script %}
   <script>
     (function() {
-      const slides = document.getElementById('heroSlides');
+      const slideElements = document.querySelectorAll('.hero-slide');
       const dots = document.querySelectorAll('.hero-pagination-dot');
       let currentSlide = 0;
-      const totalSlides = 3;
+      const totalSlides = slideElements.length;
+      let autoSlideInterval = null;
       
       function showSlide(index) {
-        slides.style.transform = `translateX(-${index * 33.333}%)`;
+        // 모든 슬라이드 비활성화
+        slideElements.forEach((slide, i) => {
+          if (i === index) {
+            slide.classList.add('active');
+          } else {
+            slide.classList.remove('active');
+          }
+        });
+        
+        // 인디케이터 업데이트
         dots.forEach((dot, i) => {
           dot.classList.toggle('active', i === index);
         });
+        
         currentSlide = index;
       }
       
-      function nextSlide() {
-        currentSlide = (currentSlide + 1) % totalSlides;
-        showSlide(currentSlide);
+      function resetTextPosition(index) {
+        const slideEl = slideElements[index];
+        const content = slideEl.querySelector('.hero-slide-content');
+        const content2 = slideEl.querySelector('.hero-slide-content2');
+        
+        // hero-slide-content: 왼쪽에서 나타나기 (초기 위치)
+        if (content) {
+          if (content.classList.contains('left-align')) {
+            content.style.transform = 'translateX(100%)';
+          } else {
+            content.style.transform = 'translate(50%, -50%)';
+          }
+          content.style.opacity = '0';
+        }
+        
+        // hero-slide-content2: 오른쪽에서 나타나기 (초기 위치)
+        if (content2) {
+          if (content2.classList.contains('hero-slide-description')) {
+            // left-align 스타일인 경우
+            content2.style.transform = 'translateX(-100%)';
+          } else {
+            content2.style.transform = 'translate(-150%, -50%)';
+          }
+          content2.style.opacity = '0';
+        }
       }
       
-      // Auto slide
-      setInterval(nextSlide, 5000);
+      function animateTextIn(index) {
+        const slideEl = slideElements[index];
+        const content = slideEl.querySelector('.hero-slide-content');
+        const content2 = slideEl.querySelector('.hero-slide-content2');
+        
+        setTimeout(() => {
+          // hero-slide-content: 왼쪽에서 중앙으로 이동
+          if (content) {
+            if (content.classList.contains('left-align')) {
+              content.style.transform = 'translateX(0)';
+            } else {
+              content.style.transform = 'translate(-50%, -50%)';
+            }
+            content.style.opacity = '1';
+          }
+          
+          // hero-slide-content2: 오른쪽에서 중앙으로 이동 (약간 늦게)
+          if (content2) {
+            setTimeout(() => {
+              if (content2.classList.contains('hero-slide-description')) {
+                // left-align 스타일인 경우
+                content2.style.transform = 'translateX(0)';
+              } else {
+                content2.style.transform = 'translate(-50%, -50%)';
+              }
+              content2.style.opacity = '1';
+            }, 200);
+          }
+        }, 600);
+      }
+      
+      function nextSlide() {
+        // 현재 슬라이드의 텍스트 페이드 아웃 및 위치 리셋
+        const currentSlideEl = slideElements[currentSlide];
+        const currentContent = currentSlideEl.querySelector('.hero-slide-content');
+        const currentContent2 = currentSlideEl.querySelector('.hero-slide-content2');
+        if (currentContent) {
+          currentContent.style.opacity = '0';
+          // 초기 위치로 리셋
+          if (currentContent.classList.contains('left-align')) {
+            currentContent.style.transform = 'translateX(100%)';
+          } else {
+            currentContent.style.transform = 'translate(50%, -50%)';
+          }
+        }
+        if (currentContent2) {
+          currentContent2.style.opacity = '0';
+          // 초기 위치로 리셋
+          if (currentContent2.classList.contains('hero-slide-description')) {
+            currentContent2.style.transform = 'translateX(-100%)';
+          } else {
+            currentContent2.style.transform = 'translate(-150%, -50%)';
+          }
+        }
+        
+        // 이미지 페이드 아웃
+        const currentImg = currentSlideEl.querySelector('img');
+        if (currentImg) {
+          currentImg.style.opacity = '0';
+        }
+        
+        // 다음 슬라이드로 전환
+        setTimeout(() => {
+          currentSlide = (currentSlide + 1) % totalSlides;
+          showSlide(currentSlide);
+          
+          // 새 슬라이드의 텍스트 위치 초기화
+          const newSlideEl = slideElements[currentSlide];
+          const newContent = newSlideEl.querySelector('.hero-slide-content');
+          const newContent2 = newSlideEl.querySelector('.hero-slide-content2');
+          
+          // transition을 일시적으로 제거하여 즉시 위치 설정
+          if (newContent) {
+            newContent.style.transition = 'none';
+          }
+          if (newContent2) {
+            newContent2.style.transition = 'none';
+          }
+          
+          resetTextPosition(currentSlide);
+          
+          // transition 복원
+          setTimeout(() => {
+            if (newContent) {
+              newContent.style.transition = '';
+            }
+            if (newContent2) {
+              newContent2.style.transition = '';
+            }
+          }, 10);
+          
+          // 새 슬라이드의 이미지 페이드 인
+          const newImg = newSlideEl.querySelector('img');
+          if (newImg) {
+            newImg.style.opacity = '0';
+            setTimeout(() => {
+              newImg.style.opacity = '1';
+            }, 50);
+          }
+          
+          // 새 슬라이드의 텍스트 애니메이션
+          animateTextIn(currentSlide);
+        }, 1000);
+      }
+      
+      function startAutoSlide() {
+        if (autoSlideInterval) {
+          clearInterval(autoSlideInterval);
+        }
+        // 각 슬라이드당 5초 (이미지 1초 + 텍스트 1초 + 대기 3초)
+        autoSlideInterval = setInterval(nextSlide, 5000);
+      }
+      
+      // 초기 슬라이드 표시
+      showSlide(0);
+      
+      // 모든 슬라이드의 텍스트 위치 초기화
+      slideElements.forEach((slide, index) => {
+        resetTextPosition(index);
+      });
+      
+      // 첫 번째 슬라이드의 이미지 페이드 인
+      setTimeout(() => {
+        const firstImg = slideElements[0].querySelector('img');
+        if (firstImg) {
+          firstImg.style.opacity = '1';
+        }
+        
+        // 첫 번째 슬라이드의 텍스트 애니메이션 (오른쪽에서)
+        animateTextIn(0);
+      }, 100);
+      
+      // 자동 슬라이드 시작 (첫 슬라이드 표시 후)
+      setTimeout(startAutoSlide, 2000);
       
       // Dot click handlers
       dots.forEach((dot, index) => {
         dot.addEventListener('click', () => {
-          showSlide(index);
+          if (autoSlideInterval) {
+            clearInterval(autoSlideInterval);
+          }
+          
+          // 현재 슬라이드 비활성화
+          const currentSlideEl = slideElements[currentSlide];
+          const currentContent = currentSlideEl.querySelector('.hero-slide-content');
+          const currentContent2 = currentSlideEl.querySelector('.hero-slide-content2');
+          const currentImg = currentSlideEl.querySelector('img');
+          if (currentContent) {
+            currentContent.style.opacity = '0';
+          }
+          if (currentContent2) {
+            currentContent2.style.opacity = '0';
+          }
+          if (currentImg) {
+            currentImg.style.opacity = '0';
+          }
+          
+          setTimeout(() => {
+            showSlide(index);
+            
+            // 클릭한 슬라이드의 텍스트 위치 초기화
+            resetTextPosition(index);
+            
+            // 클릭한 슬라이드의 이미지 페이드 인
+            const clickedSlideEl = slideElements[index];
+            const clickedImg = clickedSlideEl.querySelector('img');
+            if (clickedImg) {
+              clickedImg.style.opacity = '0';
+              setTimeout(() => {
+                clickedImg.style.opacity = '1';
+              }, 50);
+            }
+            
+            // 클릭한 슬라이드의 텍스트 애니메이션
+            animateTextIn(index);
+            
+            // 자동 슬라이드 재시작
+            setTimeout(startAutoSlide, 2000);
+          }, 500);
         });
       });
     })();
