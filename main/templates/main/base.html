@@ -90,9 +90,9 @@
           <div class="nav-item">
             <a href="{% url 'products' %}" {% if request.resolver_match.url_name == 'products' or request.resolver_match.url_name == 'paper_box' or request.resolver_match.url_name == 'carton_box' or request.resolver_match.url_name == 'color_box' %}class="active"{% endif %}>제품소개</a>
             <div class="dropdown-menu">
-              <a href="{% url 'paper_box' %}" class="dropdown-item">골판지</a>
-              <a href="{% url 'carton_box' %}" class="dropdown-item">카톤박스</a>
-              <a href="{% url 'color_box' %}" class="dropdown-item">컬러박스</a>
+              <a href="{% url 'products' %}#product-paper" class="dropdown-item">골판지</a>
+              <a href="{% url 'products' %}#product-carton" class="dropdown-item">카톤박스</a>
+              <a href="{% url 'products' %}#product-color" class="dropdown-item">컬러박스</a>
             </div>
           </div>
           <div class="nav-item">
