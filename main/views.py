@@ -3,6 +3,7 @@ from django.core.mail import send_mail, EmailMessage
 from django.contrib import messages
 from django.conf import settings
 import os
+import io
 
 def home(request):
     return render(request, 'main/index.html')
@@ -70,10 +71,14 @@ def inquiry(request):
             file_content = file.read()
             file.seek(0)  # 다시 처음으로 되돌림
             
+            # BytesIO를 사용하여 파일 객체처럼 만들기 (이메일 첨부를 위해 필요)
+            file_obj = io.BytesIO(file_content)
+            file_obj.name = file.name  # 파일 이름 설정
+            
             # 파일 정보와 내용을 함께 저장
             validated_attachments.append({
                 'name': file.name,
-                'content': file_content,
+                'content': file_obj,  # BytesIO 객체로 저장
                 'content_type': file.content_type or 'application/octet-stream',
                 'size': file.size
             })
