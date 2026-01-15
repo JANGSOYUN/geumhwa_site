@@ -176,6 +176,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
     # SECURE_HSTS_PRELOAD = True
 
 # ───────────────────────────────
+# 파일 업로드 크기 제한 (413 에러 방지)
+# ───────────────────────────────
+DATA_UPLOAD_MAX_MEMORY_SIZE = 25 * 1024 * 1024  # 25MB
+FILE_UPLOAD_MAX_MEMORY_SIZE = 25 * 1024 * 1024  # 25MB
+DATA_UPLOAD_MAX_NUMBER_FIELDS = 1000
+
+# ───────────────────────────────
 # 이메일 설정
 # ───────────────────────────────
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
