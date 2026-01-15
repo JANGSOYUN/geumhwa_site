@@ -145,6 +145,7 @@ def inquiry(request):
                             fail_silently=False,
                         )
                     email_sent = True
+                    print(f"  - {att['name']} ({att['size'] / 1024 / 1024:.2f}MB)")
                     messages.success(request, '견적문의가 성공적으로 전송되었습니다.')
                 else:
                     error_message = '이메일 설정이 완료되지 않았습니다.'
