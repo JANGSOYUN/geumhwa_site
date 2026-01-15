@@ -164,7 +164,6 @@ def inquiry(request):
                         print("[DEBUG] 이메일 메시지 구조 확인...")
                         print(f"  Content-Type: {email.content_subtype}")
                         print(f"  Mixed Subtype: {email.mixed_subtype}")
-                        print(f"  Body 인코딩: {email.body_charset}")
                         
                         # MIME 메시지 구조 확인
                         if hasattr(email, 'message'):
