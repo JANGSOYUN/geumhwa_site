@@ -20,14 +20,27 @@ SECRET_KEY = 'django-insecure-ay@p_&9hnq6npqf+*(a%-49axv%c%k9teov2^+#af%h6r^1bs@
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", SECRET_KEY)
 
 # 3️⃣ DEBUG / ALLOWED_HOSTS
-# DEBUG = os.getenv("DJANGO_DEBUG", "0") == "1"
-DEBUG = True
-ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "localhost,127.0.0.1").split(",")
+
+os.environ["DJANGO_DEBUG"] = "0"
+DEBUG = os.getenv("DJANGO_DEBUG", "0") == "1"
+
+os.environ["DJANGO_ALLOWED_HOSTS"] = "13.209.48.247"
+ALLOWED_HOSTS = os.getenv(
+    "DJANGO_ALLOWED_HOSTS",
+    "13.209.48.247,localhost,127.0.0.1"
+).split(",")
+ALLOWED_HOSTS = [h.strip() for h in ALLOWED_HOSTS if h.strip()]
+print(f"DEBUG: {DEBUG}")
+print(f"ALLOWED_HOSTS: {ALLOWED_HOSTS}")
 
 # (선택) HTTPS 환경일 때 CSRF 신뢰 도메인 추가
 CSRF_TRUSTED_ORIGINS = [
     f"https://{h.strip()}" for h in ALLOWED_HOSTS if "." in h
 ]
+if not DEBUG:
+    # HTTPS 도메인 붙였을 때만 추가
+    # CSRF_TRUSTED_ORIGINS = ["https://geumhwa.co.kr", "https://www.geumhwa.co.kr"]
+    pass
 
 # ───────────────────────────────
 # 앱 등록
@@ -174,6 +187,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
     # SECURE_HSTS_SECONDS = 31536000
     # SECURE_HSTS_INCLUDE_SUBDOMAINS = True
     # SECURE_HSTS_PRELOAD = True
+if not DEBUG:
+    SECURE_SSL_REDIRECT = False  # 지금은 HTTP라서 False
+    SESSION_COOKIE_SECURE = False
+    CSRF_COOKIE_SECURE = False
 
 # ───────────────────────────────
 # 파일 업로드 크기 제한 (413 에러 방지)
@@ -189,8 +206,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'geumhwa9300@gmail.com'
-EMAIL_HOST_PASSWORD = 'yebt fsje resn bkma'
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER", "geumhwa9300@gmail.com")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD", "yebt fsje resn bkma").replace(" ", "")
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 # ───────────────────────────────
@@ -201,4 +218,7 @@ LOGGING = {
     "disable_existing_loggers": False,
     "handlers": {"console": {"class": "logging.StreamHandler"}},
     "root": {"handlers": ["console"], "level": "INFO"},
+    "loggers": {
+        "django.core.mail": {"handlers": ["console"], "level": "DEBUG", "propagate": False},
+    },
 }
