@@ -66,19 +66,14 @@ def inquiry(request):
             
             total_size += file.size
             
-            # 파일 내용을 메모리에 저장 (파일 포인터 문제 방지)
+            # 파일 내용을 바이트로 읽어서 저장 (파일 포인터 문제 방지)
             file.seek(0)  # 파일 포인터를 처음으로 되돌림
-            file_content = file.read()
-            file.seek(0)  # 다시 처음으로 되돌림
-            
-            # BytesIO를 사용하여 파일 객체처럼 만들기 (이메일 첨부를 위해 필요)
-            file_obj = io.BytesIO(file_content)
-            file_obj.name = file.name  # 파일 이름 설정
+            file_content = file.read()  # 파일 내용을 바이트로 읽기
             
             # 파일 정보와 내용을 함께 저장
             validated_attachments.append({
                 'name': file.name,
-                'content': file_obj,  # BytesIO 객체로 저장
+                'content': file_content,  # 바이트로 저장
                 'content_type': file.content_type or 'application/octet-stream',
                 'size': file.size
             })
@@ -121,9 +116,25 @@ def inquiry(request):
                             settings.DEFAULT_FROM_EMAIL or settings.EMAIL_HOST_USER,
                             [recipient_email],
                         )
+                        
+                        # 디버깅: 첨부할 파일 정보
+                        print(f"[DEBUG] 첨부할 파일 수: {len(validated_attachments)}")
+                        for i, att in enumerate(validated_attachments):
+                            content_size = len(att['content']) if isinstance(att['content'], bytes) else 'N/A'
+                            print(f"  파일 {i+1}: {att['name']} ({att['content_type']}), 크기: {content_size} bytes")
+                        
                         for att in validated_attachments:
+                            # 바이트 내용을 직접 첨부
                             email.attach(att['name'], att['content'], att['content_type'])
+                        
+                        # 디버깅: 실제 첨부된 파일 확인
+                        print(f"[DEBUG] 이메일 객체의 첨부 파일 수: {len(email.attachments)}")
+                        for i, (filename, content, mimetype) in enumerate(email.attachments):
+                            content_size = len(content) if isinstance(content, bytes) else 'N/A'
+                            print(f"  첨부 {i+1}: {filename} ({mimetype}), 크기: {content_size} bytes")
+                        
                         email.send()
+                        print("[DEBUG] 이메일 전송 완료")
                     else:
                         # 첨부파일이 없는 경우 일반 send_mail 사용
                         send_mail(
