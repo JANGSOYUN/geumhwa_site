@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMessage
 from django.contrib import messages
 from django.conf import settings
+import os
 
 def home(request):
     return render(request, 'main/index.html')
@@ -31,10 +32,54 @@ def inquiry(request):
         size = request.POST.get('size', '')
         quantity = request.POST.get('quantity', '')
         other_requests = request.POST.get('other_requests', '')
+        attachments = request.FILES.getlist('attachments')
         
         # 필수 필드 검증
         if not company_name or not product_name or not size or not quantity:
             messages.error(request, '필수 항목을 모두 입력해주세요.')
+            return redirect('inquiry')
+        
+        # 첨부파일 검증
+        max_file_size = 10 * 1024 * 1024  # 10MB
+        max_total_size = 20 * 1024 * 1024  # 20MB
+        max_files = 3
+        allowed_extensions = ['.pdf', '.doc', '.docx', '.xls', '.xlsx', '.jpg', '.jpeg', '.png', '.zip']
+        
+        if len(attachments) > max_files:
+            messages.error(request, f'첨부파일은 최대 {max_files}개까지 가능합니다.')
+            return redirect('inquiry')
+        
+        total_size = 0
+        validated_attachments = []
+        for file in attachments:
+            # 파일 확장자 확인
+            file_ext = os.path.splitext(file.name)[1].lower()
+            if file_ext not in allowed_extensions:
+                messages.error(request, f'{file.name}: 허용되지 않는 파일 형식입니다.')
+                return redirect('inquiry')
+            
+            # 파일 크기 확인
+            if file.size > max_file_size:
+                messages.error(request, f'{file.name}: 파일 크기가 10MB를 초과합니다.')
+                return redirect('inquiry')
+            
+            total_size += file.size
+            
+            # 파일 내용을 메모리에 저장 (파일 포인터 문제 방지)
+            file.seek(0)  # 파일 포인터를 처음으로 되돌림
+            file_content = file.read()
+            file.seek(0)  # 다시 처음으로 되돌림
+            
+            # 파일 정보와 내용을 함께 저장
+            validated_attachments.append({
+                'name': file.name,
+                'content': file_content,
+                'content_type': file.content_type or 'application/octet-stream',
+                'size': file.size
+            })
+        
+        if total_size > max_total_size:
+            messages.error(request, '총 파일 크기가 20MB를 초과합니다.')
             return redirect('inquiry')
         
         # 이메일 내용 구성
@@ -48,6 +93,11 @@ def inquiry(request):
 기타 요청사항: {other_requests or '(없음)'}
 '''
         
+        if validated_attachments:
+            message += f'\n첨부파일: {len(validated_attachments)}개\n'
+            for att in validated_attachments:
+                message += f'  - {att["name"]} ({att["size"] / 1024 / 1024:.2f}MB)\n'
+        
         recipient_email = 'geumhwa9300@gmail.com'
         
         # 이메일 전송 시도
@@ -58,13 +108,26 @@ def inquiry(request):
             # 이메일 설정 확인
             if hasattr(settings, 'EMAIL_HOST_USER') and hasattr(settings, 'EMAIL_HOST_PASSWORD'):
                 if settings.EMAIL_HOST_USER and settings.EMAIL_HOST_PASSWORD:
-                    send_mail(
-                        subject,
-                        message,
-                        settings.DEFAULT_FROM_EMAIL or settings.EMAIL_HOST_USER,
-                        [recipient_email],
-                        fail_silently=False,
-                    )
+                    if validated_attachments:
+                        # 첨부파일이 있는 경우 EmailMessage 사용
+                        email = EmailMessage(
+                            subject,
+                            message,
+                            settings.DEFAULT_FROM_EMAIL or settings.EMAIL_HOST_USER,
+                            [recipient_email],
+                        )
+                        for att in validated_attachments:
+                            email.attach(att['name'], att['content'], att['content_type'])
+                        email.send()
+                    else:
+                        # 첨부파일이 없는 경우 일반 send_mail 사용
+                        send_mail(
+                            subject,
+                            message,
+                            settings.DEFAULT_FROM_EMAIL or settings.EMAIL_HOST_USER,
+                            [recipient_email],
+                            fail_silently=False,
+                        )
                     email_sent = True
                     messages.success(request, '견적문의가 성공적으로 전송되었습니다.')
                 else:
@@ -83,6 +146,10 @@ def inquiry(request):
             print(f"받는 사람: {recipient_email}")
             print(f"제목: {subject}")
             print(f"내용:\n{message}")
+            if validated_attachments:
+                print(f"\n첨부파일: {len(validated_attachments)}개")
+                for att in validated_attachments:
+                    print(f"  - {att['name']} ({att['size'] / 1024 / 1024:.2f}MB)")
             print("=" * 50)
             if error_message:
                 print(f"오류 메시지: {error_message}")

@@ -163,6 +163,75 @@
       margin-top: 5px;
     }
     
+    .form-group.file-group {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    
+    .file-input-wrapper {
+      width: 100%;
+      position: relative;
+    }
+    
+    .file-input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 14px;
+      font-family: inherit;
+    }
+    
+    .file-list {
+      margin-top: 10px;
+      width: 100%;
+    }
+    
+    .file-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 12px;
+      background: #f5f5f5;
+      border-radius: 4px;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+    
+    .file-item-name {
+      flex: 1;
+      margin-right: 10px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    
+    .file-item-size {
+      color: #666;
+      margin-right: 10px;
+      font-size: 12px;
+    }
+    
+    .file-item-remove {
+      background: #dc3545;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      padding: 4px 8px;
+      cursor: pointer;
+      font-size: 12px;
+    }
+    
+    .file-item-remove:hover {
+      background: #c82333;
+    }
+    
+    .file-error {
+      color: #dc3545;
+      font-size: 12px;
+      margin-top: 5px;
+    }
+    
     .submit-btn {
       background: #fff;
       color: #222;
@@ -262,7 +331,7 @@
         </div>
         
         <div class="inquiry-form">
-          <form method="post" action="{% url 'inquiry' %}">
+          <form method="post" action="{% url 'inquiry' %}" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="form-group">
               <label for="company-name">회사명 :</label>
@@ -288,6 +357,17 @@
               <label for="other-requests">기타 요청사항 :</label>
               <textarea id="other-requests" name="other_requests" rows="5"></textarea>
             </div>
+            
+            <div class="form-group file-group">
+              <label for="attachments">첨부파일 :</label>
+              <div class="file-input-wrapper">
+                <input type="file" id="attachments" name="attachments" multiple accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png,.zip" class="file-input">
+                <div class="help-text">파일 형식: PDF, DOC(X), XLS(X), JPG, PNG, ZIP | 개당 최대 10MB, 총 최대 20MB, 최대 3개</div>
+                <div id="file-list" class="file-list"></div>
+                <div id="file-error" class="file-error"></div>
+              </div>
+            </div>
+            
             <div class="form-submit">
               <button type="submit" class="submit-btn">문의 보내기</button>
             </div>
@@ -296,4 +376,134 @@
       </div>
     </div>
   </section>
+{% endblock %}
+
+{% block extra_script %}
+  <script>
+    (function() {
+      const fileInput = document.getElementById('attachments');
+      const fileList = document.getElementById('file-list');
+      const fileError = document.getElementById('file-error');
+      const maxFiles = 3;
+      const maxFileSize = 10 * 1024 * 1024; // 10MB
+      const maxTotalSize = 20 * 1024 * 1024; // 20MB
+      const allowedTypes = [
+        'application/pdf',
+        'application/msword',
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        'application/vnd.ms-excel',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        'image/jpeg',
+        'image/jpg',
+        'image/png',
+        'application/zip'
+      ];
+      const allowedExtensions = ['.pdf', '.doc', '.docx', '.xls', '.xlsx', '.jpg', '.jpeg', '.png', '.zip'];
+      let selectedFiles = [];
+      
+      function formatFileSize(bytes) {
+        if (bytes === 0) return '0 Bytes';
+        const k = 1024;
+        const sizes = ['Bytes', 'KB', 'MB'];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
+      }
+      
+      function getFileExtension(filename) {
+        return filename.toLowerCase().substring(filename.lastIndexOf('.'));
+      }
+      
+      function isValidFileType(file) {
+        const ext = getFileExtension(file.name);
+        return allowedExtensions.includes(ext) || allowedTypes.includes(file.type);
+      }
+      
+      function updateFileList() {
+        fileList.innerHTML = '';
+        let totalSize = 0;
+        
+        selectedFiles.forEach((file, index) => {
+          totalSize += file.size;
+          const fileItem = document.createElement('div');
+          fileItem.className = 'file-item';
+          fileItem.innerHTML = `
+            <span class="file-item-name">${file.name}</span>
+            <span class="file-item-size">${formatFileSize(file.size)}</span>
+            <button type="button" class="file-item-remove" data-index="${index}">삭제</button>
+          `;
+          fileList.appendChild(fileItem);
+        });
+        
+        // 삭제 버튼 이벤트
+        fileList.querySelectorAll('.file-item-remove').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            const index = parseInt(e.target.getAttribute('data-index'));
+            selectedFiles.splice(index, 1);
+            updateFileInput();
+            updateFileList();
+            fileError.textContent = '';
+          });
+        });
+      }
+      
+      function updateFileInput() {
+        const dataTransfer = new DataTransfer();
+        selectedFiles.forEach(file => {
+          dataTransfer.items.add(file);
+        });
+        fileInput.files = dataTransfer.files;
+      }
+      
+      fileInput.addEventListener('change', (e) => {
+        fileError.textContent = '';
+        const files = Array.from(e.target.files);
+        
+        // 파일 개수 확인
+        if (selectedFiles.length + files.length > maxFiles) {
+          fileError.textContent = `최대 ${maxFiles}개까지 첨부 가능합니다.`;
+          fileInput.value = '';
+          return;
+        }
+        
+        // 파일 검증
+        for (let file of files) {
+          // 파일 타입 확인
+          if (!isValidFileType(file)) {
+            fileError.textContent = `${file.name}: 허용되지 않는 파일 형식입니다. (PDF, DOC(X), XLS(X), JPG, PNG, ZIP만 가능)`;
+            fileInput.value = '';
+            return;
+          }
+          
+          // 파일 크기 확인
+          if (file.size > maxFileSize) {
+            fileError.textContent = `${file.name}: 파일 크기가 10MB를 초과합니다.`;
+            fileInput.value = '';
+            return;
+          }
+          
+          // 중복 파일 확인
+          if (selectedFiles.some(f => f.name === file.name && f.size === file.size)) {
+            fileError.textContent = `${file.name}: 이미 추가된 파일입니다.`;
+            fileInput.value = '';
+            return;
+          }
+        }
+        
+        // 총 크기 확인
+        const currentTotal = selectedFiles.reduce((sum, f) => sum + f.size, 0);
+        const newTotal = files.reduce((sum, f) => sum + f.size, 0);
+        if (currentTotal + newTotal > maxTotalSize) {
+          fileError.textContent = `총 파일 크기가 20MB를 초과합니다.`;
+          fileInput.value = '';
+          return;
+        }
+        
+        // 파일 추가
+        selectedFiles = [...selectedFiles, ...files];
+        updateFileInput();
+        updateFileList();
+        fileInput.value = '';
+      });
+    })();
+  </script>
 {% endblock %}
