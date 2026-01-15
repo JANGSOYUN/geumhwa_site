@@ -54,6 +54,12 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# Cross-Origin-Opener-Policy 설정 (개발 환경용)
+if DEBUG:
+    SECURE_CROSS_ORIGIN_OPENER_POLICY = None  # 개발 환경에서는 비활성화
+else:
+    SECURE_CROSS_ORIGIN_OPENER_POLICY = 'same-origin-allow-popups'
+
 ROOT_URLCONF = 'geumhwa_site.urls'
 
 TEMPLATES = [
