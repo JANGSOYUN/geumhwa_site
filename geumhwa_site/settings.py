@@ -20,18 +20,12 @@ SECRET_KEY = 'django-insecure-ay@p_&9hnq6npqf+*(a%-49axv%c%k9teov2^+#af%h6r^1bs@
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", SECRET_KEY)
 
 # 3️⃣ DEBUG / ALLOWED_HOSTS
-
-os.environ["DJANGO_DEBUG"] = "0"
-DEBUG = os.getenv("DJANGO_DEBUG", "0") == "1"
-
-os.environ["DJANGO_ALLOWED_HOSTS"] = "13.209.48.247"
-ALLOWED_HOSTS = os.getenv(
-    "DJANGO_ALLOWED_HOSTS",
-    "13.209.48.247,localhost,127.0.0.1"
-).split(",")
-ALLOWED_HOSTS = [h.strip() for h in ALLOWED_HOSTS if h.strip()]
-print(f"DEBUG: {DEBUG}")
-print(f"ALLOWED_HOSTS: {ALLOWED_HOSTS}")
+DEBUG = True
+ALLOWED_HOSTS = [
+    "13.209.48.247",
+    "localhost",
+    "127.0.0.1",
+]
 
 # (선택) HTTPS 환경일 때 CSRF 신뢰 도메인 추가
 CSRF_TRUSTED_ORIGINS = [
