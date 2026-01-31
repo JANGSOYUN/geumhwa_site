@@ -21,11 +21,8 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", SECRET_KEY)
 
 # 3️⃣ DEBUG / ALLOWED_HOSTS
 DEBUG = True
-ALLOWED_HOSTS = [
-    "13.209.48.247",
-    "localhost",
-    "127.0.0.1",
-]
+#ALLOWED_HOSTS = ["13.209.48.247", "localhost", "127.0.0.1",]
+ALLOWED_HOSTS = ['www.geumhwabox.com', 'geumhwabox.com', '13.209.48.247', 'localhost']
 
 # (선택) HTTPS 환경일 때 CSRF 신뢰 도메인 추가
 CSRF_TRUSTED_ORIGINS = [
