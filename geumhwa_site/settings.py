@@ -158,7 +158,8 @@ if USE_S3:
 
 else:
     # 로컬 Whitenoise
-    STATIC_URL = '/static/'
+    #STATIC_URL = '/static/'
+    STATIC_URL = 'https://d26f6vvt8itdt8.cloudfront.net/static/'
     STATIC_ROOT = BASE_DIR / 'staticfiles'
     STATICFILES_DIRS = [BASE_DIR / 'static']
     STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
