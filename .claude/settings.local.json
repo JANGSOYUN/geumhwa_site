@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(xargs:*)",
+      "Bash(python tests/test_email.py:*)",
+      "Bash(source:*)",
+      "Bash(python:*)",
+      "WebFetch(domain:www.geumhwabox.com)"
+    ]
+  }
+}
