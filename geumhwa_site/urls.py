@@ -16,11 +16,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from main.views import home, company, products, paper_box, carton_box, color_box, equipment, inquiry
+from django.contrib.sitemaps.views import sitemap
+from main.views import home, company, products, paper_box, carton_box, color_box, equipment, inquiry, robots_txt
+from main.sitemaps import StaticViewSitemap
 
 # 개발 중 미디어 서빙(옵션)
 from django.conf import settings
 from django.conf.urls.static import static
+
+# 사이트맵 설정
+sitemaps = {
+    'static': StaticViewSitemap,
+}
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -32,6 +39,9 @@ urlpatterns = [
     path('products/color_box/', color_box, name='color_box'),
     path('equipment/', equipment, name='equipment'),
     path('inquiry/', inquiry, name='inquiry'),
+    # SEO: 사이트맵 및 robots.txt
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
+    path('robots.txt', robots_txt, name='robots_txt'),
 ]
 
 # 개발 서버에서만 미디어 파일 서빙

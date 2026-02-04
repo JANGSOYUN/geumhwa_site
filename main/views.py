@@ -3,8 +3,20 @@ from django.core.mail import send_mail, EmailMessage
 from django.contrib import messages
 from django.conf import settings
 from django.core.files.base import ContentFile
+from django.http import HttpResponse
 import os
 import io
+
+
+def robots_txt(request):
+    """Serve robots.txt for search engine crawlers."""
+    lines = [
+        "User-agent: *",
+        "Allow: /",
+        "",
+        "Sitemap: https://www.geumhwabox.com/sitemap.xml",
+    ]
+    return HttpResponse("\n".join(lines), content_type="text/plain")
 
 def home(request):
     return render(request, 'main/index.html')

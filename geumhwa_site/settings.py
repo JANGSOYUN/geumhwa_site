@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sitemaps',  # Google 사이트맵 지원
     'main',
     'storages',  # django-storages (S3 연동)
 ]

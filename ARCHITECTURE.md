@@ -41,6 +41,8 @@ geumhwa_site/
 | `/equipment/` | equipment | Equipment page |
 | `/inquiry/` | inquiry | Quote inquiry form |
 | `/admin/` | Django admin | Admin interface |
+| `/sitemap.xml` | sitemap | Google sitemap (SEO) |
+| `/robots.txt` | robots_txt | Search engine crawl rules |
 
 ## Email Configuration
 
@@ -171,3 +173,50 @@ Email operations are logged to console with `[DEBUG]` prefix showing:
 - File reading progress
 - MIME structure verification
 - Send success/failure status
+
+## SEO Configuration (Added 2026-02-04)
+
+### Google Sitemap
+
+Sitemap is automatically generated at `/sitemap.xml` using Django's `django.contrib.sitemaps`.
+
+**Configuration:**
+- `main/sitemaps.py` - Sitemap class definition
+- URLs included: home, company, products, paper_box, equipment, inquiry
+- Protocol: HTTPS
+- Change frequency: varies by page (daily for home, weekly for products)
+
+**Google Search Console Setup:**
+1. DNS TXT record added: `google-site-verification=h0lfT_6c5cltIGq79Lphdiovdwh12CT_WqWumc1oPRw`
+2. Submit sitemap URL: `https://www.geumhwabox.com/sitemap.xml`
+
+### Robots.txt
+
+Located at `/robots.txt`, allows all crawlers and points to sitemap.
+
+```
+User-agent: *
+Allow: /
+
+Sitemap: https://www.geumhwabox.com/sitemap.xml
+```
+
+### SEO Test Results
+
+```
+SITEMAP AND SEO TEST SUITE
+============================================================
+  Robots.txt: PASSED
+  Sitemap.xml: PASSED
+  URL Accessibility: PASSED
+============================================================
+Total: 3 passed, 0 failed
+```
+
+### Run SEO Tests
+
+```bash
+cd D:\geumhwa_site
+source venv/Scripts/activate
+python tests/test_sitemap.py
+```
