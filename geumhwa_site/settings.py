@@ -206,11 +206,11 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER", "cunningloony@naver.com")
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER", "jangwkd@gmail.com")
 # Gmail 앱 비밀번호는 4자리씩 띄어 적어도 정상 동작하도록 공백을 제거한다.
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD", "onte pfun gtrt fyvg").replace(" ", "")
 DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", EMAIL_HOST_USER)
-INQUIRY_RECIPIENT_EMAILS = _get_email_list("INQUIRY_RECIPIENT_EMAILS", [EMAIL_HOST_USER])
+INQUIRY_RECIPIENT_EMAILS = _get_email_list("INQUIRY_RECIPIENT_EMAILS", ["geumhwa9300@naver.com"])
 
 # ───────────────────────────────
 # 로깅
