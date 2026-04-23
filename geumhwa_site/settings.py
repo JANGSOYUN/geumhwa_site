@@ -5,6 +5,13 @@ Django 5.2.x 기준
 from pathlib import Path
 import os
 
+
+def _get_email_list(env_name, default):
+    raw_value = os.getenv(env_name)
+    if raw_value is None:
+        return default
+    return [email.strip() for email in raw_value.split(",") if email.strip()]
+
 # ───────────────────────────────
 # 기본 경로
 # ───────────────────────────────
@@ -199,9 +206,11 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER", "geumhwa9300@gmail.com")
-EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD", "yebt fsje resn bkma")
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER", "jangwkd@gmail.com")
+# Gmail 앱 비밀번호는 4자리씩 띄어 적어도 정상 동작하도록 공백을 제거한다.
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD", "onte pfun gtrt fyvg").replace(" ", "")
+DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", EMAIL_HOST_USER)
+INQUIRY_RECIPIENT_EMAILS = _get_email_list("INQUIRY_RECIPIENT_EMAILS", [EMAIL_HOST_USER])
 
 # ───────────────────────────────
 # 로깅
